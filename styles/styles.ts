@@ -18,8 +18,10 @@ export const styles = StyleSheet.create({
     },
     ContainerInput:{
         marginLeft: 53,
-        backgroundColor: 'red',
+        marginRight: 40,
+        
         flex: 1,
+
     },
     ContainerLogo:{
         flex: 1,
@@ -49,10 +51,39 @@ export const styles = StyleSheet.create({
         marginBottom: 5,
     },
     TextBox:{
-        backgroundColor: '#EDEDED',
-        width: 319,
+        
+        width: 200,
         height: 50,
-        borderRadius: 8,
+        
         paddingHorizontal: 10,
+    },
+    BtnEsqueciSenha:{
+        justifyContent: "flex-end",
+        flexDirection: "row",
+        marginTop: 10,
+    },
+    BtnTextEsqueciSenha:{
+        fontSize: 14,
+        color: '#0097E2',
+        fontFamily: 'Montserrat-Regular'
+    },
+    BtnAcessar:{
+        backgroundColor: '#0097E2',
+        borderRadius: 8,
+        justifyContent: "center",
+        alignItems: "center",
+        height: 50,
+        marginTop: 15,
+    },
+    BtnTextAcessar:{
+        color: 'white',
+        fontSize: 20,
+        fontWeight: "bold",
+        fontFamily: "Montserrat-Regular"
+    },
+    BtnTextCadastro:{
+        fontSize: 16,
+        color: '#0097E2',
+        fontFamily: 'Montserrat-Regular'
     }
 })
