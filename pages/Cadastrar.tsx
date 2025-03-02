@@ -4,7 +4,7 @@ import { styles } from "../styles/styles";
 
 import StyledTextInput from "../components/StyledTextInput";
 import Acessar from "../components/Acessar";
-function Login(): React.JSX.Element {
+function Cadastrar(): React.JSX.Element {
     return (
         <SafeAreaView style={styles.ContainerLogin}>
             <View style={styles.ContainerLogo}>
@@ -26,21 +26,28 @@ function Login(): React.JSX.Element {
                     </Text>
                     <StyledTextInput Iconname="lock" placeholder="Digite sua senha..." ispassword={true} />
 
+
+                    <Text style={styles.LabelConfirmeSenha}>
+                        Confirme a senha
+                    </Text>
+                    <StyledTextInput Iconname="lock" placeholder="Confirme sua senha..." ispassword={true} />
+
+
                     <TouchableOpacity style={styles.BtnEsqueciSenha}>
                         <Text style={styles.BtnTextEsqueciSenha}>
                             Esqueci minha senha
                         </Text>
                     </TouchableOpacity>
 
-                    <Acessar tipo="Acessar"/>
+                    <Acessar tipo="Cadastrar"/>
 
-                    <View style={{flexDirection: "row",justifyContent: "center", alignItems: "flex-end",flex:1, marginBottom: 50, width: 160,alignSelf: "center"}}>
+                    <View style={{flexDirection: "row",justifyContent: "center", alignItems: "flex-end",flex:1, marginBottom: 50, width: 180,alignSelf: "center"}}>
                         <Text style={{marginRight: 5,fontSize: 16}}>
-                            Não tem uma conta?
+                            Já possui uma conta?
                         </Text>
                         <TouchableOpacity>
                         <Text style={styles.BtnTextCadastro}>
-                            Cadastre-se
+                            Acesse aqui
                         </Text>
                     </TouchableOpacity>
                     </View>
@@ -54,4 +61,4 @@ function Login(): React.JSX.Element {
     );
 }
 
-export default Login
+export default Cadastrar

@@ -85,5 +85,12 @@ export const styles = StyleSheet.create({
         fontSize: 16,
         color: '#0097E2',
         fontFamily: 'Montserrat-Regular'
-    }
+    },
+    LabelConfirmeSenha:{
+        fontFamily: 'Montserrat-Regular',
+        fontSize: 16,
+        marginTop: 8,
+        marginBottom: 5,
+    },
+
 })
