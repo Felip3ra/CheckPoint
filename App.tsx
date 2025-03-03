@@ -1,16 +1,24 @@
 import React from "react";
-import { Image, Text, View } from "react-native";
-import { styles } from "./styles/styles";
+
+import { NavigationContainer } from "@react-navigation/native";
+import Routes from "./pages/routes";
 
 function App(): React.JSX.Element {
   return(
-    <View style={styles.Container}>
+    <NavigationContainer>
+      <Routes/>
+    </NavigationContainer>
+  );
+}
+
+export default App;
+
+/*
+
+<View style={styles.Container}>
       <Image 
       source={require('./imgs/checkpoint.png')}
       style={styles.Logo}
       />
     </View>
-  );
-}
-
-export default App;
+*/

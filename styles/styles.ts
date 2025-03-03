@@ -92,5 +92,29 @@ export const styles = StyleSheet.create({
         marginTop: 8,
         marginBottom: 5,
     },
-
+    ContainerSuperiorHome:{
+        flex: 1,
+        backgroundColor: '#0097E2',
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    ContainerPrincipalHome:{
+        flex: 1,
+        
+        justifyContent: 'center',
+    },
+    ContainerLista:{
+        flex: 2,
+        backgroundColor: '#FBF7F4',
+        
+    },
+    BtnPonto:{
+        width: 60,
+        height: 60,
+        borderRadius: 8,
+        
+        alignItems: 'center',
+        justifyContent: "center",
+        marginBottom: 50,
+    }
 })
