@@ -1,7 +1,8 @@
 import React from "react";
 import { SafeAreaView, View, Text, TouchableOpacity } from "react-native";
 import { styles } from "../styles/styles";
-
+import  Icon  from "react-native-vector-icons/MaterialCommunityIcons";
+import CardAtual from "../components/CardAtual";
 
 function Home(): React.JSX.Element {
     
@@ -17,7 +18,15 @@ function Home(): React.JSX.Element {
     return (
         <SafeAreaView style={styles.ContainerPrincipalHome}>
             <View style={styles.ContainerSuperiorHome}>
-                <Text>{dataExtenso}</Text>
+                <Text style={styles.LabelData}>{dataExtenso}</Text>
+                <View style={styles.ContainerLabelRing}>
+                    <Text style={styles.LabelNome}>Olá, Felipe Santana</Text>
+                    <Icon
+                    name="bell-outline"
+                    size={25}
+                    />
+                </View>
+                <CardAtual/>
             </View>
             <View style={styles.ContainerLista}>
 

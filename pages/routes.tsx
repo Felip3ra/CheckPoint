@@ -24,6 +24,7 @@ export default function Routes(): React.JSX.Element{
            name="Home"
            component={Home}
            options={{
+            headerShown: false,
             tabBarIcon: ({size, color}) => (
                 <Icon name="home" size={size} color={color}/>
             )

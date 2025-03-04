@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { ProgressBar } from 'react-native-paper';
 
 export const styles = StyleSheet.create({
     Container:{
@@ -93,7 +94,7 @@ export const styles = StyleSheet.create({
         marginBottom: 5,
     },
     ContainerSuperiorHome:{
-        flex: 1,
+        flex: 2,
         backgroundColor: '#0097E2',
         justifyContent: "center",
         alignItems: "center",
@@ -112,9 +113,45 @@ export const styles = StyleSheet.create({
         width: 60,
         height: 60,
         borderRadius: 8,
-        
         alignItems: 'center',
         justifyContent: "center",
         marginBottom: 50,
+    },
+    LabelData:{
+        fontFamily: 'Montserrat-Regular',
+        fontWeight: 'bold',
+        fontSize: 20,
+        color: '#FBF7F4'
+    },
+    ContainerLabelRing:{
+        flexDirection: 'row',
+        marginTop: 44,
+    },
+    LabelNome:{
+        fontFamily: 'Montserrat-Regular',
+        fontSize: 24,
+        marginRight: 56,
+    },
+    containerCard: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        padding: 16,
+        
+    },
+    card:{
+        width: 200,
+        
+        alignItems: "center",
+        justifyContent: "center"
+    },
+    LabelCard:{
+        flexDirection: "row",
+        justifyContent: "space-between",
+        width: '100%'
+    },
+    ProgressBar:{
+        height: 10,
+        marginTop: 10,
+        borderRadius: 15
     }
 })
