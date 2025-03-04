@@ -3,6 +3,7 @@ import { SafeAreaView, View, Text, TouchableOpacity } from "react-native";
 import { styles } from "../styles/styles";
 import  Icon  from "react-native-vector-icons/MaterialCommunityIcons";
 import CardAtual from "../components/CardAtual";
+import CardHorasTrabalhadas from "../components/CardHorasTrabalhadas";
 
 function Home(): React.JSX.Element {
     
@@ -27,6 +28,7 @@ function Home(): React.JSX.Element {
                     />
                 </View>
                 <CardAtual/>
+                <CardHorasTrabalhadas/>
             </View>
             <View style={styles.ContainerLista}>
 
