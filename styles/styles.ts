@@ -153,5 +153,21 @@ export const styles = StyleSheet.create({
         height: 10,
         marginTop: 10,
         borderRadius: 15
+    },
+    SolicitacaoItem:{
+        borderColor: '#D6D6D6',
+        borderWidth: 1,
+        borderRadius: 8,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    ContainerStatus:{
+        backgroundColor: 'yellow',
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingVertical: 5,
+        paddingHorizontal: 10,
+        borderRadius: 8,
+        gap: 10
     }
 })
