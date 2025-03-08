@@ -13,8 +13,7 @@ export default function Routes(): React.JSX.Element{
             screenOptions={{
                 tabBarStyle:{
                     
-                    paddingBottom: 5,
-                    paddingTop: 5,
+                    paddingVertical: 10,
                     
                 },
                 tabBarActiveTintColor: '#0097E2',
@@ -37,7 +36,14 @@ export default function Routes(): React.JSX.Element{
            options={{
             tabBarIcon: ({size, color}) => (
                 <MaterialCommunityIcons name="hand-wave-outline" size={size} color={color}/>
-            )
+            ),
+            headerTitleStyle:{
+                color: '#FBF7F4',
+                fontWeight: "bold"
+            },
+           headerStyle:{
+            backgroundColor: '#0097E2',
+           }
            }}
            />
            <Tab.Screen

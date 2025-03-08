@@ -160,14 +160,19 @@ export const styles = StyleSheet.create({
         borderRadius: 8,
         justifyContent: 'center',
         alignItems: 'center',
+        paddingVertical: 10,
+        gap: 10,
+        marginBottom: 10
     },
     ContainerStatus:{
-        backgroundColor: 'yellow',
+        
         flexDirection: 'row',
         alignItems: 'center',
         paddingVertical: 5,
         paddingHorizontal: 10,
         borderRadius: 8,
+        borderColor: "#D6D6D6",
+        borderWidth: 1,
         gap: 10
     }
 })

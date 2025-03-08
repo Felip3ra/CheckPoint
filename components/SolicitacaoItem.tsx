@@ -1,8 +1,10 @@
-import React from "react";
+import React,{JSX} from "react";
 import { TouchableOpacity,View,Text } from "react-native";
 
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { styles } from "../styles/styles";
+import { useFonts } from 'expo-font';
+
 type ItemProps = {
     titulo: string,
     onPress: () => void,
@@ -10,27 +12,51 @@ type ItemProps = {
     motivo: string
 }
 
-const Item = ({titulo,onPress,status,motivo}:ItemProps) => (
+const Item = ({titulo,onPress,status,motivo}:ItemProps) => {
+    
+    const [fontsLoaded] = useFonts({
+        'MontserratRegular': require('../assets/fonts/Montserrat-Regular.ttf'),
+        'MontserratMedium': require('../assets/fonts/Montserrat-Medium.ttf'),
+        'MontserratSemiBold': require('../assets/fonts/Montserrat-SemiBold.ttf'),
+        'MontserratBold': require('../assets/fonts/Montserrat-Bold.ttf'),
+    });
+    return(
     <TouchableOpacity onPress={onPress} style={styles.SolicitacaoItem}>
-        <Text className="text-xl font-semibold">
+        <Text className="text-xl font-montserratSemiBold">
             {titulo}
         </Text>
-        <View style={styles.ContainerStatus}>
+        <View style={[
+            styles.ContainerStatus,
+            status == "Aprovado" ? {backgroundColor: '#ACFFD6'} :
+            status == "Pendente" ? {backgroundColor: '#FBFBA6'} :
+            {backgroundColor: '#FBA6A8'}
+            ]}>
             <MaterialCommunityIcons
-            name="clock-outline"
+            name={
+
+                status == "Pendente" ? "clock-outline" :
+                status == "Aprovado" ? "thumb-up-outline":
+                "thumb-down-outline"
+            }
             size={25}
+            color={
+                status == "Pendente" ? "#4A4A0F" :
+                status == "Aprovado" ? "#0C4E2D":
+                "#591B1C"
+            }
             />
-            <Text>
+            <Text className="text-base font-montserratMedium">
                 {status}
             </Text>
         </View>
-        <Text className="">
-            {motivo}
+        <Text className="font-montserratMedium text-base">
+            Motivo: {motivo}
         </Text>
-        <Text>
+        <Text className="text-base font-montserratRegular">
             18 de Dezembro de 2024
         </Text>
     </TouchableOpacity>
-)
+    )
+}
 
 export default Item;
