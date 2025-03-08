@@ -15,19 +15,19 @@ function Login(): React.JSX.Element {
             </View>
             <View style={styles.ContainerBackground}>
                 <View style={styles.ContainerInput}>
-                    <Text style={styles.LabelEmail}>
+                    <Text style={styles.LabelEmail} className="font-montserratRegular">
                         Email
                     </Text>
                     <StyledTextInput Iconname="email" placeholder="Digite seu email..." ispassword={false} />
 
 
-                    <Text style={styles.LabelSenha}>
+                    <Text style={styles.LabelSenha} className="font-montserratRegular">
                         Senha
                     </Text>
                     <StyledTextInput Iconname="lock" placeholder="Digite sua senha..." ispassword={true} />
 
                     <TouchableOpacity style={styles.BtnEsqueciSenha}>
-                        <Text style={styles.BtnTextEsqueciSenha}>
+                        <Text className="text-base text-[#0097E2]">
                             Esqueci minha senha
                         </Text>
                     </TouchableOpacity>
@@ -35,11 +35,11 @@ function Login(): React.JSX.Element {
                     <Acessar tipo="Acessar"/>
 
                     <View style={{flexDirection: "row",justifyContent: "center", alignItems: "flex-end",flex:1, marginBottom: 50, width: 160,alignSelf: "center"}}>
-                        <Text style={{marginRight: 5,fontSize: 16}}>
+                        <Text className="mr-2 text-base font-montserratRegular">
                             Não tem uma conta?
                         </Text>
                         <TouchableOpacity>
-                        <Text style={styles.BtnTextCadastro}>
+                        <Text className="text-base text-[#0097E2] font-montserratRegular">
                             Cadastre-se
                         </Text>
                     </TouchableOpacity>

@@ -3,12 +3,12 @@ import { TouchableOpacity, Text } from "react-native";
 import { styles } from "../styles/styles";
 
 type BtnAcessar = {
-    tipo: String
+    tipo: string,
 }
 const Acessar: React.FC<BtnAcessar> = ({tipo}) => {
     return (
         <TouchableOpacity style={styles.BtnAcessar}>
-            <Text style={styles.BtnTextAcessar}>
+            <Text className="font-montserratBold text-xl color-white">
                 {tipo}
             </Text>
         </TouchableOpacity>

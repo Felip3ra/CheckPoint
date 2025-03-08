@@ -40,13 +40,13 @@ export const styles = StyleSheet.create({
         
     },
     LabelEmail:{
-        fontFamily: 'Montserrat-Regular',
+        
         fontSize: 16,
         marginTop: 55,
         marginBottom: 5,
     },
     LabelSenha:{
-        fontFamily: 'Montserrat-Regular',
+        
         fontSize: 16,
         marginTop: 8,
         marginBottom: 5,
@@ -66,7 +66,7 @@ export const styles = StyleSheet.create({
     BtnTextEsqueciSenha:{
         fontSize: 14,
         color: '#0097E2',
-        fontFamily: 'Montserrat-Regular'
+        
     },
     BtnAcessar:{
         backgroundColor: '#0097E2',
@@ -76,12 +76,7 @@ export const styles = StyleSheet.create({
         height: 50,
         marginTop: 15,
     },
-    BtnTextAcessar:{
-        color: 'white',
-        fontSize: 20,
-        fontWeight: "bold",
-        fontFamily: "Montserrat-Regular"
-    },
+   
     BtnTextCadastro:{
         fontSize: 16,
         color: '#0097E2',
