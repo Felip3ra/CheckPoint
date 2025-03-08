@@ -39,12 +39,7 @@ export const styles = StyleSheet.create({
         backgroundColor: '#0097E2',
         
     },
-    LabelEmail:{
-        
-        fontSize: 16,
-        marginTop: 55,
-        marginBottom: 5,
-    },
+    
     LabelSenha:{
         
         fontSize: 16,
@@ -74,14 +69,9 @@ export const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         height: 50,
-        marginTop: 15,
+        marginTop: 36,
     },
    
-    BtnTextCadastro:{
-        fontSize: 16,
-        color: '#0097E2',
-        fontFamily: 'Montserrat-Regular'
-    },
     LabelConfirmeSenha:{
         fontFamily: 'Montserrat-Regular',
         fontSize: 16,

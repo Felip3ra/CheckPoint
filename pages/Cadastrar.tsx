@@ -15,13 +15,13 @@ function Cadastrar(): React.JSX.Element {
             </View>
             <View style={styles.ContainerBackground}>
                 <View style={styles.ContainerInput}>
-                    <Text style={styles.LabelEmail}>
+                    <Text className="text-base mt-14 mb-1.5 font-montserratRegular">
                         Email
                     </Text>
                     <StyledTextInput Iconname="email" placeholder="Digite seu email..." ispassword={false} />
 
 
-                    <Text style={styles.LabelSenha}>
+                    <Text style={styles.LabelSenha} className="text-base mt-2 mb-1.5">
                         Senha
                     </Text>
                     <StyledTextInput Iconname="lock" placeholder="Digite sua senha..." ispassword={true} />
@@ -32,21 +32,14 @@ function Cadastrar(): React.JSX.Element {
                     </Text>
                     <StyledTextInput Iconname="lock" placeholder="Confirme sua senha..." ispassword={true} />
 
-
-                    <TouchableOpacity style={styles.BtnEsqueciSenha}>
-                        <Text style={styles.BtnTextEsqueciSenha}>
-                            Esqueci minha senha
-                        </Text>
-                    </TouchableOpacity>
-
                     <Acessar tipo="Cadastrar"/>
 
                     <View style={{flexDirection: "row",justifyContent: "center", alignItems: "flex-end",flex:1, marginBottom: 50, width: 180,alignSelf: "center"}}>
-                        <Text style={{marginRight: 5,fontSize: 16}}>
+                        <Text className="mr-2 text-base font-montserratRegular">
                             Já possui uma conta?
                         </Text>
                         <TouchableOpacity>
-                        <Text style={styles.BtnTextCadastro}>
+                        <Text className="text-base text-[#0097E2] font-montserratRegular">
                             Acesse aqui
                         </Text>
                     </TouchableOpacity>

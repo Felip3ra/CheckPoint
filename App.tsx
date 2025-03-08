@@ -4,6 +4,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import Routes from "./pages/routes";
 import './global.css';
 import Login from "pages/Login";
+import Cadastrar from "pages/Cadastrar";
 
 function App(): React.JSX.Element {
   return(
@@ -11,7 +12,7 @@ function App(): React.JSX.Element {
     //<NavigationContainer>
       //<Routes/>
     //</NavigationContainer>
-    <Login/>
+    <Cadastrar/>
   );
 }
 
