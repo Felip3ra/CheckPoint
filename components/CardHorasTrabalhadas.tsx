@@ -9,7 +9,7 @@ export default function CardHorasTrabalhadas(): React.JSX.Element {
         <View style={styles.containerCard}>
             <Card>
                 <Card.Content>
-                    <View style={{justifyContent: 'space-between', alignItems: 'center', height: 70}}>
+                    <View style={{justifyContent: 'space-between', alignItems: 'center', gap: 10}}>
                     <Text style={{fontSize: 14, fontWeight: 'bold'}}>
                         Horas Trabalhadas
                     </Text>

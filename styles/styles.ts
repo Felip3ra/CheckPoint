@@ -121,6 +121,7 @@ export const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-between",
         padding: 16,
+        height: 150,
         
     },
     card:{
