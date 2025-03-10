@@ -100,7 +100,7 @@ export const styles = StyleSheet.create({
         borderRadius: 8,
         alignItems: 'center',
         justifyContent: "center",
-        marginBottom: 50,
+        marginBottom: 40,
     },
     LabelData:{
         fontFamily: 'Montserrat-Regular',

@@ -1,15 +1,14 @@
 import React from "react";
 import { SafeAreaView, View, Image, Text, TouchableOpacity } from "react-native";
-import { styles } from "../styles/styles";
-
-import StyledTextInput from "../components/StyledTextInput";
-import Acessar from "../components/Acessar";
+import { styles } from "styles/styles";
+import StyledTextInput from "components/StyledTextInput";
+import Acessar from "components/Acessar";
 function Cadastrar(): React.JSX.Element {
     return (
         <SafeAreaView style={styles.ContainerLogin}>
             <View style={styles.ContainerLogo}>
                 <Image
-                    source={require('../imgs/checkpoint.png')}
+                    source={require('../../imgs/checkpoint.png')}
                     style={styles.LogoLogin}
                 />
             </View>
