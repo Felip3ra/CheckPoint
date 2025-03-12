@@ -1,16 +1,20 @@
-import { View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity,ScrollView} from 'react-native';
 import { styles } from "styles/styles";
 import Acessar from 'components/Acessar';
 import StyledTextInput from 'components/StyledTextInput';
 import * as ImagePicker from 'expo-image-picker'
 import { useState } from 'react';
 import ImagePickerProfile from 'components/ImagePickerProfile';
+
 export default function Profile() {
   
   return (
-    <View>
+    <ScrollView>
+
+    
+    <View className='flex-1'>
       <ImagePickerProfile/>
-      <Text className='font-montserratMedium text-2xl pt-5'>Felipe Santana Santos</Text>
+      <Text className='font-montserratMedium text-2xl pt-5 text-center'>Felipe Santana Santos</Text>
       <View style={styles.ContainerInput}>
                     <Text className="font-montserratRegular mt-14">
                         Email
@@ -35,6 +39,7 @@ export default function Profile() {
                     </View>
                 </View>
     </View>
+    </ScrollView>
   );
 }
 

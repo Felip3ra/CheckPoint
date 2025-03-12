@@ -20,7 +20,7 @@ const ImagePickerProfile: React.FC = () => {
           aspect: [4,3],
           quality: 1
         });
-
+        console.log(result);
         if(!result.canceled){
           setSelectedImage(result.assets[0].uri);
         }
@@ -29,9 +29,9 @@ const ImagePickerProfile: React.FC = () => {
       }
     }
     return(
-        <View>
+        <View className="mt-20 flex items-center">
       <Button title="Selecionar Imagem" onPress={pickImage} />
-      {selectedImage && <Image source={{ uri: selectedImage }}/>}
+      {selectedImage && <Image source={{ uri: selectedImage }} style={{width: 200, height: 200, borderRadius: 100,}} resizeMode="cover"/>}
     </View>
     )
   }
