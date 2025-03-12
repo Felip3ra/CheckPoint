@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Button, Image, Alert} from "react-native";
+import { View, Button, Image, Alert, TouchableOpacity} from "react-native";
 import * as ImagePicker from "expo-image-picker";
 
 const ImagePickerProfile: React.FC = () => {
@@ -30,8 +30,11 @@ const ImagePickerProfile: React.FC = () => {
     }
     return(
         <View className="mt-20 flex items-center">
-      <Button title="Selecionar Imagem" onPress={pickImage} />
-      {selectedImage && <Image source={{ uri: selectedImage }} style={{width: 200, height: 200, borderRadius: 100,}} resizeMode="cover"/>}
+          <TouchableOpacity onPress={pickImage} className="rounded-full w-40 h-40 bg-[#D9D9D9]">
+          {selectedImage && <Image source={{ uri: selectedImage }} resizeMode="cover" className=" w-40 h-40 rounded-full"/>}
+          </TouchableOpacity>
+      
+      
     </View>
     )
   }
