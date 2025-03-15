@@ -14,15 +14,10 @@ type ItemProps = {
 
 const Item = ({titulo,onPress,status,motivo}:ItemProps) => {
     
-    const [fontsLoaded] = useFonts({
-        'MontserratRegular': require('../assets/fonts/Montserrat-Regular.ttf'),
-        'MontserratMedium': require('../assets/fonts/Montserrat-Medium.ttf'),
-        'MontserratSemiBold': require('../assets/fonts/Montserrat-SemiBold.ttf'),
-        'MontserratBold': require('../assets/fonts/Montserrat-Bold.ttf'),
-    });
+    
     return(
-    <TouchableOpacity onPress={onPress} style={styles.SolicitacaoItem}>
-        <Text className="text-xl font-montserratSemiBold">
+    <TouchableOpacity onPress={onPress} style={[styles.SolicitacaoItem,{overflow: 'visible'}]}>
+        <Text className="text-xl font-montserratSemiBold px-5">
             {titulo}
         </Text>
         <View style={[
@@ -45,14 +40,14 @@ const Item = ({titulo,onPress,status,motivo}:ItemProps) => {
                 "#591B1C"
             }
             />
-            <Text className="text-base font-montserratMedium">
+            <Text className="text-base font-montserratMedium px-1">
                 {status}
             </Text>
         </View>
-        <Text className="font-montserratMedium text-base">
+        <Text className="font-montserratMedium text-base px-4">
             Motivo: {motivo}
         </Text>
-        <Text className="text-base font-montserratRegular">
+        <Text className="text-base font-montserratRegular px-4">
             18 de Dezembro de 2024
         </Text>
     </TouchableOpacity>
