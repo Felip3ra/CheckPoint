@@ -1,17 +1,11 @@
-import { View, Text, StyleSheet } from 'react-native';
+import Mapa from "components/maps";
+import React from "react";
+import { SafeAreaView } from "react-native";
 
-export default function Tab() {
+export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Tab [Home|Settings]</Text>
-    </View>
+    <SafeAreaView style={{ flex: 1 }}>
+      <Mapa />
+    </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
