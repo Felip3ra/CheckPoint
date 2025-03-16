@@ -35,7 +35,7 @@ export default function Layout() {
                 }}
             />
             <Tabs.Screen
-           name="Ponto"
+           name="point"
            options={{
             title: '',
             tabBarIcon: ({focused, size}) => (

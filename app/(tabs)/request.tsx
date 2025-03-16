@@ -13,11 +13,11 @@ const ajustes = [
   ];
 function Request(): React.JSX.Element {
   const [fontsLoaded] = useFonts({
-          'MontserratRegular': require('../../assets/fonts/Montserrat-Regular.ttf'),
-          'MontserratMedium': require('../../assets/fonts/Montserrat-Medium.ttf'),
-          'MontserratSemiBold': require('../../assets/fonts/Montserrat-SemiBold.ttf'),
-          'MontserratBold': require('../../assets/fonts/Montserrat-Bold.ttf'),
-      });
+    'MontserratRegular': require('../../assets/fonts/Montserrat-Regular.ttf'),
+    'MontserratMedium': require('../../assets/fonts/Montserrat-Medium.ttf'),
+    'MontserratSemiBold': require('../../assets/fonts/Montserrat-SemiBold.ttf'),
+    'MontserratBold': require('../../assets/fonts/Montserrat-Bold.ttf'),
+});
     return(
         <View style={{marginHorizontal: 10}}>
             <Text className="text-xl py-4 font-montserratRegular">
