@@ -2,6 +2,8 @@ import React from "react";
 import { SafeAreaView, View, Text, TouchableOpacity, FlatList } from "react-native";
 import Item from "components/SolicitacaoItem";
 import { useFonts } from 'expo-font';
+import ButtonNewRequest from "components/ButtonNewRequest";
+import { Redirect } from "expo-router";
 
 const ajustes = [
     { id: "1", titulo: "Ajuste de Ponto", status: "Pendente", motivo: "Consulta médica." },
@@ -12,6 +14,7 @@ const ajustes = [
     { id: "6", titulo: "Ajuste de Ponto", status: "Aprovado", motivo: "Elevador quebrado." },
   ];
 function Request(): React.JSX.Element {
+  
   const [fontsLoaded] = useFonts({
     'MontserratRegular': require('../../assets/fonts/Montserrat-Regular.ttf'),
     'MontserratMedium': require('../../assets/fonts/Montserrat-Medium.ttf'),
@@ -38,7 +41,7 @@ function Request(): React.JSX.Element {
         )}
       />
 
-            
+          <ButtonNewRequest/>  
         </View>
     );
 }

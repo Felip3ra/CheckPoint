@@ -18,6 +18,7 @@ export default function Layout() {
             <Tabs.Screen
                 name="index"
                 options={{
+                    title: 'Home',
                     headerShown: false,
                     tabBarIcon: ({ size, color }) => (
                         <MaterialCommunityIcons name="home" size={size} color={color} />
@@ -62,6 +63,8 @@ export default function Layout() {
                     )
                 }}
             />
+           
+            
         </Tabs>
     )
 }

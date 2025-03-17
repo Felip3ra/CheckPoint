@@ -5,12 +5,20 @@ export default function Layout() {
   return (
     <Stack>
       <Stack.Screen
+      name='NewRequest/index'
+      options={{
+        title:'Nova Solicitacao',
+        headerStyle: {backgroundColor: '#0097E2',},
+        headerTintColor: '#FBF7F4',
+      }}
+      />
+      <Stack.Screen
         name="(tabs)"
         options={{
           headerShown: false, // Oculta o header para as telas dentro de "(tabs)"
         }}
       />
-      {/* Adicione outras telas ou grupos de telas aqui, se necessário */}
+      
     </Stack>
   );
 }

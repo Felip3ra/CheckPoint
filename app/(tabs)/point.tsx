@@ -33,13 +33,13 @@ export default function point(): React.JSX.Element{
         setModal(true)
       }
       function CloseModal() {
-        setModal(false)
+        setModal(false);
       }
       
     return(
         <SafeAreaView className="flex bg-[#FBF7F4]">
             <Modal animationType="slide" visible={modal} >
-        <View className="mx-9 mt-">
+        <View className="mx-9">
             <Text className="text-center mt-7 font-montserratBold text-2xl">
                 Comprovante de Ponto
             </Text>
