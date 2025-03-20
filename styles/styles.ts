@@ -86,13 +86,13 @@ export const styles = StyleSheet.create({
     },
     ContainerPrincipalHome:{
         flex: 1,
-        
+        backgroundColor: '#FBF7F4',
         justifyContent: 'center',
     },
     ContainerLista:{
         flex: 2,
         backgroundColor: '#FBF7F4',
-        
+        marginHorizontal: 28
     },
     BtnPonto:{
         width: 60,

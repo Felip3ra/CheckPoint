@@ -6,13 +6,13 @@ import CardAtual from "../../components/CardAtual";
 import CardHorasTrabalhadas from "../../components/CardHorasTrabalhadas";
 import Carousel, { ICarouselInstance, Pagination } from "react-native-reanimated-carousel";
 import { Dimensions } from "react-native";
-
 import {
     Extrapolation,
     interpolate,
     useSharedValue,
     withSpring
 } from "react-native-reanimated";
+import RegistroPonto from "components/RegistroPonto";
 function Home(): React.JSX.Element {
     const progress = useSharedValue<number>(0);
     const ref = React.useRef<ICarouselInstance>(null);
@@ -104,7 +104,7 @@ function Home(): React.JSX.Element {
             </View>
             <View style={styles.ContainerLista}>
 
-
+                    <RegistroPonto/>
 
 
             </View>
