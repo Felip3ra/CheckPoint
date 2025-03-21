@@ -1,7 +1,7 @@
 import React from "react";
 import { SafeAreaView, View, Image, Text, TouchableOpacity } from "react-native";
 import { styles } from "styles/styles";
-import { Stack } from "expo-router";
+import { router, Stack } from "expo-router";
 import StyledTextInput from "components/StyledTextInput";
 import Acessar from "components/Acessar";
 function Login(): React.JSX.Element {
@@ -34,7 +34,7 @@ function Login(): React.JSX.Element {
                         </Text>
                     </TouchableOpacity>
 
-                    <Acessar tipo="Acessar"/>
+                    <Acessar tipo="Acessar" onPress={() => router.replace('../(tabs)')}/>
 
                     <View style={{flexDirection: "row",justifyContent: "center", alignItems: "flex-end",flex:1, marginBottom: 50, width: 160,alignSelf: "center"}}>
                         <Text className="mr-2 text-base font-montserratRegular">

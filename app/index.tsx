@@ -4,7 +4,7 @@ import { useCustomFonts } from '../hooks/useFonts';
 export default function RootLayout() {
   const fontsLoaded = useCustomFonts();
   return (
-    <Redirect href="(tabs)"/>
+    <Redirect href="Login"/>
   );
 }
 

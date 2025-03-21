@@ -4,6 +4,8 @@ import '../global.css'; // Importação do global.css para carregar os estilos d
 export default function Layout() {
   return (
     <Stack>
+      <Stack.Screen name='Login/index'/>
+      <Stack.Screen name='Register/index'/>
       <Stack.Screen
       name='NewRequest/index'
       options={{
