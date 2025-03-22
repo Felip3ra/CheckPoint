@@ -36,11 +36,11 @@ function Login(): React.JSX.Element {
 
                     <Acessar tipo="Acessar" onPress={() => router.replace('../(tabs)')}/>
 
-                    <View style={{flexDirection: "row",justifyContent: "center", alignItems: "flex-end",flex:1, marginBottom: 50, width: 160,alignSelf: "center"}}>
+                    <View  className="mb-14 flex-row flex-1 justify-center items-end">
                         <Text className="mr-2 text-base font-montserratRegular">
                             Não tem uma conta?
                         </Text>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={() => router.push('../Register')}>
                         <Text className="text-base text-[#0097E2] font-montserratRegular">
                             Cadastre-se
                         </Text>

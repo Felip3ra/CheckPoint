@@ -13,6 +13,8 @@ import {
     withSpring
 } from "react-native-reanimated";
 import RegistroPonto from "components/RegistroPonto";
+
+
 function Home(): React.JSX.Element {
     const progress = useSharedValue<number>(0);
     const ref = React.useRef<ICarouselInstance>(null);

@@ -8,8 +8,8 @@ type BtnAcessar = {
 }
 const Acessar: React.FC<BtnAcessar> = ({tipo,onPress}) => {
     return (
-        <TouchableOpacity style={styles.BtnAcessar} onPress={onPress}>
-            <Text className="font-montserratBold text-xl color-white">
+        <TouchableOpacity style={styles.BtnAcessar} onPress={onPress} >
+            <Text className="font-montserratBold text-xl color-white text-center">
                 {tipo}
             </Text>
         </TouchableOpacity>

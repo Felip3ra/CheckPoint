@@ -28,8 +28,15 @@ export default function Layout() {
             <Tabs.Screen
                 name="request"
                 options={{
-                    title: "Solicitacoes",
-
+                    title: "Solicitações",
+                    headerStyle: {
+                        backgroundColor: '#0097E2',
+                        
+                    },
+                    headerTitleStyle: {
+                        color: '#FBF7F4',
+                        
+                    },
                     tabBarIcon: ({ size, color }) => (
                         <MaterialCommunityIcons name="hand-wave-outline" size={size} color={color} />
                     )

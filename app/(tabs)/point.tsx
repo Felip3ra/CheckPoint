@@ -1,13 +1,13 @@
 import { View,Text, SafeAreaView, Modal, TouchableOpacity } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect,useContext } from "react";
 import { Picker } from "@react-native-picker/picker";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Mapa from "../../components/maps";
 import Acessar from "components/Acessar";
 import LottieView from "lottie-react-native";
 import { styles } from "styles/styles";
-
 export default function point(): React.JSX.Element{
+    
     enum Pontos{
         ponto1 = 'Entrada',
         ponto2 = 'Almoco',
@@ -15,20 +15,40 @@ export default function point(): React.JSX.Element{
         ponto4 = 'Saída',
         default = 'Selecione o tipo de ponto'
     };
-    //const [ponto, setPonto] = useState<string | null>(null);
-    let dataHoje: string = new Date().toLocaleDateString('pt-BR', {
-        hour: 'numeric',
-        minute: 'numeric',
-        weekday: 'long', // Nome do dia da semana
-        year: 'numeric', // Ano completo
-        month: 'long',   // Nome do mês
-        day: 'numeric',   // Dia do mês
-        hour12: false,
-        timeZone: 'America/Sao_Paulo',
-      });
+    
+    useEffect(() => {
+        // Função que atualiza a data
+        const atualizarData = () => {
+          const novaData = new Date().toLocaleDateString("pt-BR", {
+            hour: "numeric",
+            minute: "numeric",
+            second: "numeric", // Adiciona os segundos
+            weekday: "long",
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+            hour12: false,
+            timeZone: "America/Sao_Paulo",
+          });
+    
+          setDataHoje(novaData);
+        };
+    
+        // Atualiza a cada segundo (1000 ms)
+        const intervalo = setInterval(atualizarData, 10000);
+    
+        // Atualiza imediatamente ao carregar
+        atualizarData();
+    
+        // Limpa o intervalo quando o componente for desmontado
+        return () => clearInterval(intervalo);
+      }, []);
+        
       
       const [ponto,setPonto] = useState<string | null>(Pontos.default);
       const [modal,setModal] = useState<boolean>(false);
+      const [DataHoje,setDataHoje] = useState<string | null>('')
+      
       function ShowModal() {
         setModal(true)
       }
@@ -37,6 +57,7 @@ export default function point(): React.JSX.Element{
       }
       
     return(
+
         <SafeAreaView className="flex bg-[#FBF7F4]">
             <Modal animationType="slide" visible={modal} >
         <View className="mx-9">
@@ -93,7 +114,7 @@ export default function point(): React.JSX.Element{
                 Horário do ponto
             </Text>
             <Text className="font-montserratMedium text-xl mt-8">
-                {dataHoje}
+                {DataHoje}
             </Text>
             <Text className="font-montserratRegular text-xl mt-4 mb-1.5">
                 Tipo de ponto
@@ -109,11 +130,11 @@ export default function point(): React.JSX.Element{
             </Picker>
             </View>
             <Text className="font-montserratRegular text-xl mb-1.5 mt-5">
-                Localizacao
+                Localização
             </Text>
             <View className="flex-row items-center gap-20 py-5 pl-5  border-[#D6D6D6] border rounded-lg">
                 <Text className="font-montserratRegular text-xl">
-                    Av. Benjamin Constant, 66
+                    Benjamin
                 </Text>
                 <MaterialCommunityIcons
                 name="reload"
@@ -125,7 +146,7 @@ export default function point(): React.JSX.Element{
                     <Mapa/>
             </View>
             <TouchableOpacity style={styles.BtnAcessar} onPress={ShowModal}>
-                        <Text className="font-montserratBold text-xl color-white">
+                        <Text className="font-montserratBold text-xl color-white text-center">
                             Bater ponto
                         </Text>
             </TouchableOpacity>

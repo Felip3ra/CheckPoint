@@ -1,11 +1,17 @@
 import { Stack } from 'expo-router/stack';
 import '../global.css'; // Importação do global.css para carregar os estilos do Tailwind
 
+
 export default function Layout() {
   return (
+    
     <Stack>
       <Stack.Screen name='Login/index'/>
-      <Stack.Screen name='Register/index'/>
+      <Stack.Screen name='Register/index'
+      options={{
+        headerShown: false
+      }}
+      />
       <Stack.Screen
       name='NewRequest/index'
       options={{
@@ -22,5 +28,6 @@ export default function Layout() {
       />
       
     </Stack>
+    
   );
 }
