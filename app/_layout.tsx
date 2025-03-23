@@ -1,10 +1,11 @@
 import { Stack } from 'expo-router/stack';
 import '../global.css'; // Importação do global.css para carregar os estilos do Tailwind
+import { AddressProvider } from 'hooks/AddressContext';
 
 
 export default function Layout() {
   return (
-    
+    <AddressProvider>
     <Stack>
       <Stack.Screen name='Login/index'/>
       <Stack.Screen name='Register/index'
@@ -28,6 +29,6 @@ export default function Layout() {
       />
       
     </Stack>
-    
+    </AddressProvider>
   );
 }

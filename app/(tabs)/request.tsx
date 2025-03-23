@@ -17,9 +17,10 @@ function Request(): React.JSX.Element {
   
   
     return(
-        <View className="mx-3 flex-1">
+        <View className="flex-1 bg-[#FBF7F4]">
+          <View className="mx-3 flex-1 bg-[#FBF7F4]">
             <Text className="text-xl py-4 font-montserratRegular">
-                Suas Solicitacoes
+                Suas Solicitacões
             </Text>
             <FlatList
             
@@ -37,6 +38,7 @@ function Request(): React.JSX.Element {
       />
 
           <ButtonNewRequest/>  
+        </View>
         </View>
     );
 }

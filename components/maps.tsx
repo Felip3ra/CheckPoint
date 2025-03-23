@@ -1,14 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, TouchableOpacity, ActivityIndicator } from "react-native";
 import MapView, { Marker } from "react-native-maps";
+import { useAddressContext, Address } from "hooks/AddressContext";
 import * as Location from "expo-location";
 
 const Mapa = () => {
   const [location, setLocation] = useState<null | Location.LocationObject>(null);
-  const [address, setAddress] = useState<string | null>(null);
+  const {setAddress} = useAddressContext();
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
+  useEffect(() => {
+    const intervalo = setInterval(getLocation,60000)
+
+    getLocation()
+    return () => clearInterval(intervalo);
+  },[])
   const getLocation = async () => {
     setLoading(true);
     setErrorMsg(null);
@@ -33,11 +40,19 @@ const Mapa = () => {
       if (reverseGeocode.length > 0) {
         let { street, streetNumber, city, region, postalCode, country } = reverseGeocode[0];
 
-        // 🏡 Formata o endereço
-        let fullAddress = `${street || "Rua desconhecida"} ${streetNumber || ""}, ${city || ""} - ${region || ""}, ${postalCode || "CEP não encontrado"}, ${country || ""}`;
+        const fullAddress: Address = {
+          street: street || "Rua desconhecida",
+          streetNumber: streetNumber || "",
+          city: city || "",
+          region: region || "",
+          postalCode: postalCode || "CEP não encontrado",
+          country: country || "",
+        };
+
+        // Atualiza o contexto com o objeto estruturado
         setAddress(fullAddress);
       } else {
-        setAddress("Endereço não encontrado");
+        setAddress(null);
       }
     } catch (error) {
       setErrorMsg("Erro ao obter localização.");
@@ -73,36 +88,9 @@ const Mapa = () => {
         )}
       </MapView>
 
-      {/* 📌 Exibir informações de localização */}
-      <View style={{ position: "absolute", top: 40, left: 10, backgroundColor: "white", padding: 10, borderRadius: 5 }}>
-        {location ? (
-          <>
-            <Text>Latitude: {location.coords.latitude.toFixed(6)}</Text>
-            <Text>Longitude: {location.coords.longitude.toFixed(6)}</Text>
-            {address ? <Text>Endereço: {address}</Text> : <ActivityIndicator size="small" color="blue" />}
-          </>
-        ) : (
-          <Text>Pressione o botão para capturar a localização</Text>
-        )}
-      </View>
 
-      {/* 📍 Botão para capturar a localização */}
-      <TouchableOpacity
-        onPress={getLocation}
-        style={{
-          position: "absolute",
-          bottom: 40,
-          left: "50%",
-          marginLeft: -75,
-          backgroundColor: "#007AFF",
-          padding: 12,
-          borderRadius: 10,
-          alignItems: "center",
-          width: 150,
-        }}
-      >
-        {loading ? <ActivityIndicator color="white" /> : <Text style={{ color: "white", fontWeight: "bold" }}>Capturar Localização</Text>}
-      </TouchableOpacity>
+      
+     
     </View>
   );
 };

@@ -45,7 +45,13 @@ export default function Layout() {
             <Tabs.Screen
            name="point"
            options={{
-            title: '',
+            title: 'Bater ponto',
+            headerStyle: {
+                backgroundColor: '#0097E2'
+            },
+            headerTitleStyle: {
+                color: '#FBF7F4',
+            },
             tabBarIcon: ({focused, size}) => (
                 <ButtonPonto size={size} focused={focused}/>
             )

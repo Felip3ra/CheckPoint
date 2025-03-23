@@ -6,6 +6,7 @@ import Mapa from "../../components/maps";
 import Acessar from "components/Acessar";
 import LottieView from "lottie-react-native";
 import { styles } from "styles/styles";
+import { useAddressContext } from "hooks/AddressContext";
 export default function point(): React.JSX.Element{
     
     enum Pontos{
@@ -35,7 +36,7 @@ export default function point(): React.JSX.Element{
         };
     
         // Atualiza a cada segundo (1000 ms)
-        const intervalo = setInterval(atualizarData, 10000);
+        const intervalo = setInterval(atualizarData, 1000);
     
         // Atualiza imediatamente ao carregar
         atualizarData();
@@ -48,7 +49,7 @@ export default function point(): React.JSX.Element{
       const [ponto,setPonto] = useState<string | null>(Pontos.default);
       const [modal,setModal] = useState<boolean>(false);
       const [DataHoje,setDataHoje] = useState<string | null>('')
-      
+      const {address} = useAddressContext()
       function ShowModal() {
         setModal(true)
       }
@@ -134,7 +135,7 @@ export default function point(): React.JSX.Element{
             </Text>
             <View className="flex-row items-center gap-20 py-5 pl-5  border-[#D6D6D6] border rounded-lg">
                 <Text className="font-montserratRegular text-xl">
-                    Benjamin
+                    {address?.street}, {address?.streetNumber} - {address?.postalCode}
                 </Text>
                 <MaterialCommunityIcons
                 name="reload"
