@@ -1,9 +1,31 @@
-import React from "react";
-import { SafeAreaView, View, Image, Text, TouchableOpacity } from "react-native";
+import React,{useState} from "react";
+import { SafeAreaView, View, Image, Text, TouchableOpacity, Alert } from "react-native";
 import { styles } from "styles/styles";
 import StyledTextInput from "components/StyledTextInput";
 import Acessar from "components/Acessar";
+import axios from "axios";
+import { router } from "expo-router";
 function Cadastrar(): React.JSX.Element {
+    const [nome, setNome] = useState('');
+    const [email, setEmail] = useState('');
+    const [senha, setSenha] = useState('');
+    const handleCreateUser = async () => {
+        try{
+            const API_URL = 'http://192.168.15.116:3000/api/Register'
+            const userData = {
+                nome,
+                email,
+                senha,
+            };
+            await axios.post(API_URL,userData);
+            Alert.alert("Sucesso","Usuário criado com sucesso!")
+            router.replace("../Login")
+        }
+        catch(error){
+            console.error('Erro ao criar usuário:', error);
+            Alert.alert('Erro', 'Ocorreu um erro ao criar o usuário.');
+        }
+    }
     return (
         <SafeAreaView style={styles.ContainerLogin}>
             <View style={styles.ContainerLogo}>
@@ -14,24 +36,26 @@ function Cadastrar(): React.JSX.Element {
             </View>
             <View style={styles.ContainerBackground}>
                 <View style={styles.ContainerInput}>
+
+                    <Text className="text-base mt-14 mb-1.5 font-montserratRegular">
+                        Nome
+                    </Text>
+                    <StyledTextInput Iconname="account" placeholder="Digite seu nome..." ispassword={false} onChangeText={(text) => setNome(text)}/>
+
                     <Text className="text-base mt-14 mb-1.5 font-montserratRegular">
                         Email
                     </Text>
-                    <StyledTextInput Iconname="email" placeholder="Digite seu email..." ispassword={false} />
+                    <StyledTextInput Iconname="email" placeholder="Digite seu email..." ispassword={false} onChangeText={(text) => setEmail(text)}/>
 
 
                     <Text style={styles.LabelSenha} className="text-base mt-2 mb-1.5">
                         Senha
                     </Text>
-                    <StyledTextInput Iconname="lock" placeholder="Digite sua senha..." ispassword={true} />
+                    <StyledTextInput Iconname="lock" placeholder="Digite sua senha..." ispassword={true} onChangeText={(text) => setSenha(text)}/>
 
 
-                    <Text style={styles.LabelConfirmeSenha}>
-                        Confirme a senha
-                    </Text>
-                    <StyledTextInput Iconname="lock" placeholder="Confirme sua senha..." ispassword={true} />
 
-                    <Acessar tipo="Cadastrar"/>
+                    <Acessar tipo="Cadastrar" onPress={handleCreateUser}/>
 
                     <View style={{flexDirection: "row",justifyContent: "center", alignItems: "flex-end",flex:1, marginBottom: 50, width: 180,alignSelf: "center"}}>
                         <Text className="mr-2 text-base font-montserratRegular">

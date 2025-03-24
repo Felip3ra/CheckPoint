@@ -7,8 +7,9 @@ type TextInputProps = {
     Iconname: string;
     placeholder: string;
     ispassword: boolean;
+    onChangeText: (text: string) => void;
 }
- const StyledTextInput: React.FC<TextInputProps> = ({Iconname,placeholder,ispassword}) => {
+ const StyledTextInput: React.FC<TextInputProps> = ({Iconname,placeholder,ispassword,onChangeText}) => {
     return (
         <View style={{ flexDirection: "row", alignItems: "center", backgroundColor: '#EDEDED', height: 50, borderRadius: 8, paddingHorizontal: 8, width: 319 }}>
             <MaterialCommunityIcons
@@ -19,7 +20,7 @@ type TextInputProps = {
                 placeholder={placeholder}
                 style={styles.TextBox}
                 className="font-montserratRegular"
-
+                onChangeText={onChangeText}
             />
             {ispassword && (
         <TouchableOpacity  className="ml-12">
