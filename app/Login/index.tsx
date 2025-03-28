@@ -15,7 +15,15 @@ function Login(): React.JSX.Element {
             const response = await axios.post(API_URL,{email,senha});
             console.log(response)
             const {user} = response.data;
-            router.replace('../(tabs)')
+            
+            router.replace({
+                pathname: '../(tabs)',
+                params: {
+                    id: user.id,
+                    nome: user.NM_FUNCIONARIO,
+                    emailFuncionario: user.NM_EMAIL
+                }
+            })
         }
         catch(error){
             console.error('Erro ao fazer login:', error.response?.data || error.message);

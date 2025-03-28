@@ -13,9 +13,12 @@ import {
     withSpring
 } from "react-native-reanimated";
 import RegistroPonto from "components/RegistroPonto";
+import { useLocalSearchParams } from "expo-router";
 
 
 function Home(): React.JSX.Element {
+    const {nome,emailFuncionario} = useLocalSearchParams<{nome: string; emailFuncionario: string}>()
+    console.log(emailFuncionario)
     const progress = useSharedValue<number>(0);
     const ref = React.useRef<ICarouselInstance>(null);
     const onPressPagination = (index: number) => {
@@ -48,7 +51,7 @@ function Home(): React.JSX.Element {
             <View style={styles.ContainerSuperiorHome}>
                 <Text style={styles.LabelData}>{dataExtenso}</Text>
                 <View style={styles.ContainerLabelRing}>
-                    <Text style={styles.LabelNome}>Olá, Felipe Santana</Text>
+                    <Text style={styles.LabelNome}>Olá, {emailFuncionario}</Text>
                     <MaterialCommunityIcons
                         name="bell-outline"
                         size={25}

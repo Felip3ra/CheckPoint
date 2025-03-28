@@ -29,10 +29,9 @@ exports.getUsers = async (req, res) => {
     return res.status(200).json({
       message: 'Login bem-sucedido',
       user: {
-        id: user.ID,
-        nome: user.NM_FUNCIONARIO,
-        email: user.NM_EMAIL,
-        isAdmin: user.BT_ISADMIN,
+        id: user.CD_FUNCIONARIO,
+        NM_FUNCIONARIO: user.NM_FUNCIONARIO,
+        NM_EMAIL: user.NM_EMAIL,
       },
     });
   } catch (err) {
