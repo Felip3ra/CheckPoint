@@ -5,9 +5,11 @@ import { router, Stack } from "expo-router";
 import StyledTextInput from "components/StyledTextInput";
 import Acessar from "components/Acessar";
 import axios from "axios";
+import { useAuth } from "hooks/AuthContext";
 function Login(): React.JSX.Element {
     const [email,setEmail] = useState<string | null>("")
     const [senha,setSenha] = useState<string | null>("")
+    const {login} = useAuth()
     const handleAutenticateUser = async() => {
         try{
             const API_URL = 'http://192.168.15.116:3000/api/Autentication';
@@ -15,15 +17,13 @@ function Login(): React.JSX.Element {
             const response = await axios.post(API_URL,{email,senha});
             console.log(response)
             const {user} = response.data;
-            
-            router.replace({
-                pathname: '../(tabs)',
-                params: {
-                    id: user.id,
-                    nome: user.NM_FUNCIONARIO,
-                    emailFuncionario: user.NM_EMAIL
-                }
-            })
+            login({
+                id: user.id,
+                nome: user.NM_FUNCIONARIO,
+                email: user.NM_EMAIL
+            });
+            console.log(Login)
+            router.replace('../(tabs)')
         }
         catch(error){
             console.error('Erro ao fazer login:', error.response?.data || error.message);

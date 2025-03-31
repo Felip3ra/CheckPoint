@@ -1,8 +1,9 @@
 import { Picker } from "@react-native-picker/picker";
-import { View,Text, TextInput, TouchableOpacity } from "react-native";
+import { View,Text, TextInput, TouchableOpacity,Alert } from "react-native";
 import DateTimePicker from '@react-native-community/datetimepicker'
 import { useState } from "react";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import axios from "axios";
 function NewRequest() {
     const [date,setDate] = useState<Date | null>(new Date)
     const [mode,setMode] = useState<string | null>('date')
@@ -15,6 +16,27 @@ function NewRequest() {
         setDate(currentDate); // Atualiza a data selecionada
         setShowDatePicker(false); // Oculta o DateTimePicker após a seleção
     };
+    const handleCreateFixPointRequest = async () => {
+        try{
+            const API_URL = "http://192.168.15.116:3000/api/NewRequest"
+            
+            await axios.post(API_URL,{
+                cdPonto,
+                solicitacao,
+                status,
+                motivo,
+                descricao,
+                dataInicio,
+                dataFinal,
+                totalHoras,
+                arquivo
+            })
+        }
+        catch(error){
+            console.error('Erro ao criar usuário:', error);
+            Alert.alert('Erro', 'Ocorreu um erro ao criar o usuário.');
+        }
+    }
     return(
 
         <View className="mx-11">

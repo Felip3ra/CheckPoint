@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { SafeAreaView, View, Text, Animated } from "react-native";
+import React, { useEffect, useState } from "react";
+import { SafeAreaView, View, Text, Animated, FlatList } from "react-native";
 import { styles } from "../../styles/styles";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import CardAtual from "../../components/CardAtual";
@@ -14,11 +14,34 @@ import {
 } from "react-native-reanimated";
 import RegistroPonto from "components/RegistroPonto";
 import { useLocalSearchParams } from "expo-router";
+import { useAuth } from "hooks/AuthContext";
+import axios from "axios";
 
-
+interface Ponto {
+    ponto: string;
+    horario: string;
+}
 function Home(): React.JSX.Element {
-    const {nome,emailFuncionario} = useLocalSearchParams<{nome: string; emailFuncionario: string}>()
-    console.log(emailFuncionario)
+    const { user } = useAuth()
+    const [id, setId] = useState<number | null>(user!.id)
+    const [ponto, setPonto] = useState<Ponto | null>(null)
+    useEffect(() => {
+        const fetchPonto = async () => {
+            try {
+                if (!id) return; // Certifique-se de que o ID está definido
+                const API_URL = `http://192.168.15.116:3000/api/GetPoint/${id}`;
+                const response = await axios.get(API_URL); // Use `params` para enviar o ID
+                setPonto(response.data.pontos);
+            } catch (error) {
+                console.error("Erro ao buscar ponto:", error);
+            }
+        };
+
+        fetchPonto();
+    }, [user]); // Adicione `id` como dependência para reexecutar quando o ID mudar
+
+    
+    console.log(user?.email)
     const progress = useSharedValue<number>(0);
     const ref = React.useRef<ICarouselInstance>(null);
     const onPressPagination = (index: number) => {
@@ -51,7 +74,7 @@ function Home(): React.JSX.Element {
             <View style={styles.ContainerSuperiorHome}>
                 <Text style={styles.LabelData}>{dataExtenso}</Text>
                 <View style={styles.ContainerLabelRing}>
-                    <Text style={styles.LabelNome}>Olá, {emailFuncionario}</Text>
+                    <Text style={styles.LabelNome}>Olá, {user!.nome}</Text>
                     <MaterialCommunityIcons
                         name="bell-outline"
                         size={25}
@@ -108,8 +131,17 @@ function Home(): React.JSX.Element {
 
             </View>
             <View style={styles.ContainerLista}>
+                <FlatList
+                    data={ponto}
+                    keyExtractor={(item, index) => index.toString()}
+                    renderItem={({ item }) => (
+                        <RegistroPonto ponto={item.ponto} horario={item.horario} />
+                    )}
+                    ListEmptyComponent={() => (
+                        <Text className="text-center mt-5 size-5">Nenhum ponto registrado.</Text>
+                    )}
+                />
 
-                    <RegistroPonto/>
 
 
             </View>

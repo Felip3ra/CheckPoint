@@ -1,4 +1,4 @@
-import { View,Text, SafeAreaView, Modal, TouchableOpacity } from "react-native";
+import { View,Text, SafeAreaView, Modal, TouchableOpacity,Alert } from "react-native";
 import React, { useState, useEffect,useContext } from "react";
 import { Picker } from "@react-native-picker/picker";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -7,7 +7,12 @@ import Acessar from "components/Acessar";
 import LottieView from "lottie-react-native";
 import { styles } from "styles/styles";
 import { useAddressContext } from "hooks/AddressContext";
+import axios from "axios";
+import { router, useLocalSearchParams } from "expo-router";
+import { useAuth } from "hooks/AuthContext";
 export default function point(): React.JSX.Element{
+    const {user} = useAuth();
+    let intervalo : any;
     
     enum Pontos{
         ponto1 = 'Entrada',
@@ -16,7 +21,26 @@ export default function point(): React.JSX.Element{
         ponto4 = 'Saída',
         default = 'Selecione o tipo de ponto'
     };
-    
+    const [CodigoFuncionario,setCodigoFuncionario] = useState<number | null>(0);
+    const [tipoPonto,setTipoPonto] = useState<string | null>('');
+    const [Endereco,setEndereco] = useState<string | null>('');
+    const handleAddPoint = async () => {
+        try{
+            setCodigoFuncionario(user!.id)
+            const API_URL = 'http://192.168.15.116:3000/api/Point'
+            await axios.post(API_URL,{
+                CodigoFuncionario,
+                tipoPonto,
+                endereco,
+
+            })
+            ShowModal()
+        }
+        catch(error){
+            console.error('Erro ao criar Ponto:', error);
+            Alert.alert('Erro', 'Ocorreu um erro ao criar o Ponto.');
+        }
+    }
     useEffect(() => {
         // Função que atualiza a data
         const atualizarData = () => {
@@ -36,7 +60,7 @@ export default function point(): React.JSX.Element{
         };
     
         // Atualiza a cada segundo (1000 ms)
-        const intervalo = setInterval(atualizarData, 1000);
+        intervalo = setInterval(atualizarData, 1000);
     
         // Atualiza imediatamente ao carregar
         atualizarData();
@@ -50,11 +74,15 @@ export default function point(): React.JSX.Element{
       const [modal,setModal] = useState<boolean>(false);
       const [DataHoje,setDataHoje] = useState<string | null>('')
       const {address} = useAddressContext()
+      let endereco = `${address?.street}, ${address?.streetNumber} - ${address?.postalCode} - ${address?.region} - ${address?.country}`
       function ShowModal() {
+        clearInterval(intervalo)
         setModal(true)
       }
       function CloseModal() {
         setModal(false);
+        router.replace('(tabs)')
+        
       }
       
     return(
@@ -85,7 +113,7 @@ export default function point(): React.JSX.Element{
             </Text>
             <View className="gap-5 mt-5">
                 <Text className="font-montserratMedium text-sm">
-                <Text className="font-montserratBold text-sm">Nome:</Text> Felipe Santana Santos
+                <Text className="font-montserratBold text-sm">Nome:</Text> {user!.nome}
                 </Text>
                 <Text className="font-montserratMedium text-sm">
                 <Text className="font-montserratBold text-sm">Matrícula:</Text> 000.000.000-00
@@ -94,7 +122,7 @@ export default function point(): React.JSX.Element{
                 <Text className="font-montserratBold text-sm">Jornada:</Text> 09:00 ás 16 Hrs
                 </Text>
                 <Text className="font-montserratMedium text-sm">
-                <Text className="font-montserratBold text-sm">Local:</Text> Av. Benjamin Constant, 66 - Santos
+                <Text className="font-montserratBold text-sm">Local:</Text> {address?.street}, {address?.streetNumber} - {address?.postalCode} - {address?.region} - {address?.country}
                 </Text>
             </View>
             <TouchableOpacity style={styles.BtnAcessar} onPress={ShowModal}>
@@ -121,7 +149,7 @@ export default function point(): React.JSX.Element{
                 Tipo de ponto
             </Text>
             <View className="rounded-lg bg-[#EDEDED]">
-            <Picker selectedValue={ponto} onValueChange={(itemValue,itemIndex) => setPonto(itemValue)} style={{fontFamily: 'font-montserratRegular'}}>
+            <Picker selectedValue={ponto} onValueChange={(itemValue,itemIndex) => setTipoPonto(itemValue)} style={{fontFamily: 'font-montserratRegular'}}>
             {Object.values(Pontos)
                     .filter(value => typeof value === 'string') // Filtra apenas os valores do enum
                     .map((ponto, index) => (
@@ -146,7 +174,7 @@ export default function point(): React.JSX.Element{
             <View className="h-72 flex-row mt-4">
                     <Mapa/>
             </View>
-            <TouchableOpacity style={styles.BtnAcessar} onPress={ShowModal}>
+            <TouchableOpacity style={styles.BtnAcessar} onPress={handleAddPoint}>
                         <Text className="font-montserratBold text-xl color-white text-center">
                             Bater ponto
                         </Text>
