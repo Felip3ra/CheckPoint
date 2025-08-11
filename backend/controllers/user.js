@@ -12,7 +12,7 @@ exports.getUsers = async (req, res) => {
     const result = await pool
       .request()
       .input('email', sql.NVarChar, email)
-      .query('SELECT * FROM T_FUNCIONARIO WHERE NM_EMAIL = @email');
+      .query('SELECT * FROM T_FUNCIONARIO WHERE [FUN_NM_EMAIL] = @email');
 
     const user = result.recordset[0];
 
@@ -21,7 +21,7 @@ exports.getUsers = async (req, res) => {
     }
 
     // Comparar a senha (não use senhas em texto plano em produção!)
-    if (user.NM_SENHA !== senha) {
+    if (user.FUN_NM_SENHA !== senha) {
       return res.status(401).json({ error: 'Senha incorreta' });
     }
 
@@ -29,9 +29,9 @@ exports.getUsers = async (req, res) => {
     return res.status(200).json({
       message: 'Login bem-sucedido',
       user: {
-        id: user.CD_FUNCIONARIO,
-        NM_FUNCIONARIO: user.NM_FUNCIONARIO,
-        NM_EMAIL: user.NM_EMAIL,
+        id: user.FUN_CD_USUARIO,
+        NM_FUNCIONARIO: user.FUN_NM_NOME,
+        NM_EMAIL: user.FUN_NM_EMAIL,
       },
     });
   } catch (err) {
@@ -42,7 +42,7 @@ exports.getUsers = async (req, res) => {
 
 exports.addUser = async (req,res) => {
     try {
-        const { nome, email, senha, isAdmin } = req.body;
+        const { nome, email, senha} = req.body;
         console.log('Dados recebidos no backend:', req.body);
         if (!nome || !email || !senha) {
             return res.status(400).json({ error: 'Todos os campos são obrigatórios' });
@@ -53,9 +53,8 @@ exports.addUser = async (req,res) => {
                     .input('nome',sql.NVarChar,nome)
                     .input('email',sql.NVarChar,email)
                     .input('senha',sql.NVarChar,senha)
-                    .input('isAdmin',sql.Bit,0)
-                    .query(`INSERT INTO T_FUNCIONARIO ([NM_FUNCIONARIO], [NM_EMAIL], [NM_SENHA], [DT_GRAVACAO], [BT_ISADMIN])
-        VALUES (@nome, @email, @senha, GETDATE(), @isAdmin)`);
+                    .query(`INSERT INTO T_FUNCIONARIO ([FUN_NM_NOME], [FUN_NM_EMAIL], [FUN_NM_SENHA], [FUN_DT_CRIACAO])
+        VALUES (@nome, @email, @senha, GETDATE())`);
         return res.status(201).json({message: 'Usuário criado com sucesso!'})
     } catch (err) {
         console.log('Erro ao criar usuário: ', err)

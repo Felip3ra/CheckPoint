@@ -3,8 +3,10 @@ import { View, Text, StyleSheet } from "react-native";
 import { Card, ProgressBar } from "react-native-paper";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { styles } from "../styles/styles";
-
+import "../global.css";
+import { useCustomFonts } from "@/hooks/useFonts";
 export default function CardAtual() {
+    const fontsLoaded = useCustomFonts();
     return (
         <View style={styles.containerCard}>
             {/* Card 1 - Progresso */}

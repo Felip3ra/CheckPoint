@@ -1,10 +1,10 @@
 import { View, Text, StyleSheet, TouchableOpacity,ScrollView} from 'react-native';
-import { styles } from "styles/styles";
-import Acessar from 'components/Acessar';
-import StyledTextInput from 'components/StyledTextInput';
-import * as ImagePicker from 'expo-image-picker'
+import { styles } from "@/styles/styles";
+import Acessar from '@/components/Acessar';
+import StyledTextInput from '@/components/StyledTextInput';
+//import * as ImagePicker from '@/expo-image-picker';
 import { useState } from 'react';
-import ImagePickerProfile from 'components/ImagePickerProfile';
+import ImagePickerProfile from '@/components/ImagePickerProfile';
 
 
 export default function Profile() {

@@ -2,7 +2,9 @@
 import { View, TextInput,TouchableOpacity } from "react-native";
 import { styles } from "../styles/styles";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-
+import "../global.css";
+import { useCustomFonts } from "@/hooks/useFonts";
+import { useState } from "react";
 type TextInputProps = {
     Iconname: string;
     placeholder: string;
@@ -10,6 +12,9 @@ type TextInputProps = {
     onChangeText: (text: string) => void;
 }
  const StyledTextInput: React.FC<TextInputProps> = ({Iconname,placeholder,ispassword,onChangeText}) => {
+    const fontsLoaded = useCustomFonts();
+    const [IsPSWD,setIsPSWD] = useState(false);
+    const MudarSenha = () => setIsPSWD(!IsPSWD);
     return (
         <View style={{ flexDirection: "row", alignItems: "center", backgroundColor: '#EDEDED', height: 50, borderRadius: 8, paddingHorizontal: 8, width: 319 }}>
             <MaterialCommunityIcons
@@ -21,10 +26,12 @@ type TextInputProps = {
                 style={styles.TextBox}
                 className="font-montserratRegular"
                 onChangeText={onChangeText}
+                secureTextEntry={ispassword && !IsPSWD}
+                
             />
             {ispassword && (
-        <TouchableOpacity  className="ml-12">
-          <MaterialCommunityIcons name={"eye"} size={25} />
+        <TouchableOpacity  className="ml-12" onPress={MudarSenha}>
+          <MaterialCommunityIcons name={IsPSWD ? "eye-off" : "eye"} size={25} />
         </TouchableOpacity>
       )}
         </View>

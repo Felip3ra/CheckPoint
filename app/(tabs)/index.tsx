@@ -12,9 +12,9 @@ import {
     useSharedValue,
     withSpring
 } from "react-native-reanimated";
-import RegistroPonto from "components/RegistroPonto";
+import RegistroPonto from "@/components/RegistroPonto";
 import { useLocalSearchParams } from "expo-router";
-import { useAuth } from "hooks/AuthContext";
+import { useAuth } from "@/hooks/AuthContext";
 import axios from "axios";
 
 interface Ponto {
@@ -24,7 +24,7 @@ interface Ponto {
 function Home(): React.JSX.Element {
     const { user } = useAuth()
     const [id, setId] = useState<number | null>(user!.id)
-    const [ponto, setPonto] = useState<Ponto | null>(null)
+    const [ponto, setPonto] = useState<Ponto[]>([]);
     useEffect(() => {
         const fetchPonto = async () => {
             try {
@@ -113,14 +113,17 @@ function Home(): React.JSX.Element {
                     data={cards} // Passando diretamente os dados dos cartões
                     size={20}
                     dotStyle={{
-                        borderRadius: 100,
-                        backgroundColor: interpolate(progress.value, [0, 1], ["#f1f1f1", "#3b5998"]) as any,
-                    }}
-                    activeDotStyle={{
-                        borderRadius: 100,
-                        overflow: "hidden",
-                        backgroundColor: "#f1f1f1",
-                    }}
+    borderRadius: 100,
+    backgroundColor: "#f1f1f1", // Cor padrão
+    width: 10,
+    height: 10,
+  }}
+  activeDotStyle={{
+    borderRadius: 100,
+    backgroundColor: "#3b5998", // Cor ativa
+    width: 10,
+    height: 10,
+  }}
                     containerStyle={{
                         gap: 5,
                         marginBottom: 10,
@@ -150,4 +153,4 @@ function Home(): React.JSX.Element {
     );
 }
 
-export default Home
+export default Home;

@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, TouchableOpacity, ActivityIndicator } from "react-native";
 import MapView, { Marker } from "react-native-maps";
-import { useAddressContext, Address } from "hooks/AddressContext";
+import { useAddressContext, Address } from "@/hooks/AddressContext";
 import * as Location from "expo-location";
-
+import "../global.css";
+import { useCustomFonts } from "@/hooks/useFonts";
 const Mapa = () => {
+  const fontsLoaded = useCustomFonts();
   const [location, setLocation] = useState<null | Location.LocationObject>(null);
   const {setAddress} = useAddressContext();
   const [errorMsg, setErrorMsg] = useState<string | null>(null);

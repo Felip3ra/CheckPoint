@@ -1,6 +1,6 @@
 import { Tabs} from "expo-router";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import ButtonPonto from "components/ButtonPonto";
+import ButtonPonto from "@/components/ButtonPonto";
 export default function Layout() {
     
     return (

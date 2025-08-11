@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { View, Button, Image, Alert, TouchableOpacity} from "react-native";
 import * as ImagePicker from "expo-image-picker";
-
+import "../global.css";
+import { useCustomFonts } from "@/hooks/useFonts";
 const ImagePickerProfile: React.FC = () => {
+  const fontsLoaded = useCustomFonts();
     const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
     const pickImage = async (): Promise<void> => {

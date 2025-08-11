@@ -2,14 +2,14 @@ import { View,Text, SafeAreaView, Modal, TouchableOpacity,Alert } from "react-na
 import React, { useState, useEffect,useContext } from "react";
 import { Picker } from "@react-native-picker/picker";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import Mapa from "../../components/maps";
-import Acessar from "components/Acessar";
+import Mapa from "@/components/maps";
+import Acessar from "@/components/Acessar";
 import LottieView from "lottie-react-native";
-import { styles } from "styles/styles";
-import { useAddressContext } from "hooks/AddressContext";
+import { styles } from "@/styles/styles";
+import { useAddressContext } from "@/hooks/AddressContext";
 import axios from "axios";
 import { router, useLocalSearchParams } from "expo-router";
-import { useAuth } from "hooks/AuthContext";
+import { useAuth } from "@/hooks/AuthContext";
 export default function point(): React.JSX.Element{
     const {user} = useAuth();
     let intervalo : any;
@@ -21,15 +21,16 @@ export default function point(): React.JSX.Element{
         ponto4 = 'Saída',
         default = 'Selecione o tipo de ponto'
     };
-    const [CodigoFuncionario,setCodigoFuncionario] = useState<number | null>(0);
+    
     const [tipoPonto,setTipoPonto] = useState<string | null>('');
     const [Endereco,setEndereco] = useState<string | null>('');
     const handleAddPoint = async () => {
         try{
-            setCodigoFuncionario(user!.id)
+            
             const API_URL = 'http://192.168.15.116:3000/api/Point'
+            console.log(user?.id);
             await axios.post(API_URL,{
-                CodigoFuncionario,
+                CodigoFuncionario : user!.id,
                 tipoPonto,
                 endereco,
 
@@ -81,7 +82,7 @@ export default function point(): React.JSX.Element{
       }
       function CloseModal() {
         setModal(false);
-        router.replace('(tabs)')
+        router.replace('/(tabs)');
         
       }
       

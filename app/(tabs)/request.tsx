@@ -1,8 +1,8 @@
 import React from "react";
 import { SafeAreaView, View, Text, TouchableOpacity, FlatList } from "react-native";
-import Item from "components/SolicitacaoItem";
+import Item from "@/components/SolicitacaoItem";
 import { useFonts } from 'expo-font';
-import ButtonNewRequest from "components/ButtonNewRequest";
+import ButtonNewRequest from "@/components/ButtonNewRequest";
 import { Redirect } from "expo-router";
 
 const ajustes = [

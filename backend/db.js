@@ -12,7 +12,7 @@ const config = {
   port: parseInt(process.env.DB_PORT, 10),
   options: {
     encrypt: process.env.DB_ENCRYPT === "true",
-    trustServerCertificate: true, // Para conexões locais
+    trustServerCertificate: true, 
   },
 };
 

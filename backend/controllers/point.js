@@ -15,14 +15,14 @@ exports.GetPoint = async (req, res) => {
       .input('id', sql.Int, id)
       .query(`
         SELECT 
-    CD_FUNCIONARIO, 
-    NM_PONTO, 
-    NM_ENDERECO, 
-    DT_PONTO -- NÃO aplique conversão AT TIME ZONE
+    [PON_CD_FUNCIONARIO], 
+    [PON_NM_PONTO], 
+    [PON_NM_ENDERECO], 
+    [PON_DT_PONTO]
 FROM T_PONTO 
-WHERE CD_FUNCIONARIO = @id 
-  AND CAST(DT_PONTO AS DATE) = CAST(GETDATE() AS DATE)
-ORDER BY DT_PONTO;
+WHERE [PON_CD_FUNCIONARIO] = @id 
+  AND CAST([PON_DT_PONTO] AS DATE) = CAST(GETDATE() AS DATE)
+ORDER BY [PON_DT_PONTO];
 
 
       `);
@@ -30,13 +30,16 @@ ORDER BY DT_PONTO;
     const pontos = result.recordset;
 
     if (pontos.length === 0) {
-      return res.status(404).json({ error: 'Nenhum ponto encontrado para este funcionário hoje' });
+      return res.status(200).json({
+      message: 'Nenhum ponto registrado hoje.',
+      pontos: []
+    });
     }
 
     // Formata os pontos encontrados
     const pontosFormatados = pontos.map((ponto) => ({
-      ponto: ponto.NM_PONTO,
-      horario: new Date(ponto.DT_PONTO).toISOString().split('T')[1].slice(0, 5)
+      ponto: ponto.PON_NM_PONTO,
+      horario: new Date(ponto.PON_DT_PONTO).toISOString().split('T')[1].slice(0, 5)
     }));
     
 
@@ -64,7 +67,7 @@ exports.AddPoint = async (req,res) => {
                   .input('CodigoFuncionario',sql.Int,CodigoFuncionario)
                   .input('tipoPonto',sql.NVarChar,tipoPonto)
                   .input('endereco',sql.NVarChar,endereco)
-                  .query(`INSERT INTO T_PONTO ([CD_FUNCIONARIO], [NM_PONTO], [NM_ENDERECO], [DT_PONTO]) 
+                  .query(`INSERT INTO T_PONTO ([PON_CD_FUNCIONARIO], [PON_NM_PONTO], [PON_NM_ENDERECO], [PON_DT_PONTO]) 
                     VALUES (@CodigoFuncionario, @tipoPonto, @endereco, GETDATE())`);
       return res.status(201).json({message: 'Ponto criado com sucesso!'})
     }

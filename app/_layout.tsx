@@ -1,7 +1,7 @@
 import { Stack } from 'expo-router/stack';
 import '../global.css'; // Importação do global.css para carregar os estilos do Tailwind
-import { AddressProvider } from 'hooks/AddressContext';
-import { AuthProvider } from 'hooks/AuthContext';
+import { AddressProvider } from '@/hooks/AddressContext';
+import { AuthProvider } from '@/hooks/AuthContext';
 
 
 export default function Layout() {

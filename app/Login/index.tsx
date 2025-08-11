@@ -1,12 +1,15 @@
 import React, { useState } from "react";
-import { SafeAreaView, View, Image, Text, TouchableOpacity, Alert } from "react-native";
-import { styles } from "styles/styles";
+import { SafeAreaView, View, Image, Text, TouchableOpacity, Alert, KeyboardAvoidingView } from "react-native";
+import { styles } from "@/styles/styles";
 import { router, Stack } from "expo-router";
-import StyledTextInput from "components/StyledTextInput";
-import Acessar from "components/Acessar";
+import StyledTextInput from "@/components/StyledTextInput";
+import Acessar from "@/components/Acessar";
 import axios from "axios";
-import { useAuth } from "hooks/AuthContext";
+import { useAuth } from "@/hooks/AuthContext";
+import { useCustomFonts } from "@/hooks/useFonts";
+
 function Login(): React.JSX.Element {
+    const fontsLoaded = useCustomFonts();
     const [email,setEmail] = useState<string | null>("")
     const [senha,setSenha] = useState<string | null>("")
     const {login} = useAuth()
@@ -22,7 +25,7 @@ function Login(): React.JSX.Element {
                 nome: user.NM_FUNCIONARIO,
                 email: user.NM_EMAIL
             });
-            console.log(Login)
+            console.log(user.id)
             router.replace('../(tabs)')
         }
         catch(error){
@@ -32,7 +35,8 @@ function Login(): React.JSX.Element {
     }
     return (
         
-        <SafeAreaView style={styles.ContainerLogin}>
+
+        <KeyboardAvoidingView style={styles.ContainerLogin}>
             <Stack.Screen options={{ headerShown: false }} />
             <View style={styles.ContainerLogo}>
                 <Image
@@ -61,13 +65,13 @@ function Login(): React.JSX.Element {
 
                     <Acessar tipo="Acessar" onPress={handleAutenticateUser}/>
 
-                    <View  className="mb-14 flex-row flex-1 justify-center items-end">
-                        <Text className="mr-2 text-base font-montserratRegular">
+                    <View  className="mb-14 py-4 flex-row flex-1 justify-center items-end">
+                        <Text className="mr-3 text-base font-montserratRegular">
                             Não tem uma conta?
                         </Text>
                         <TouchableOpacity onPress={() => router.push('../Register')}>
                         <Text className="text-base text-[#0097E2] font-montserratRegular">
-                            Cadastre-se
+                            Cadastre-se 
                         </Text>
                     </TouchableOpacity>
                     </View>
@@ -76,7 +80,7 @@ function Login(): React.JSX.Element {
 
 
             </View>
-        </SafeAreaView>
+        </KeyboardAvoidingView>
 
     );
 }

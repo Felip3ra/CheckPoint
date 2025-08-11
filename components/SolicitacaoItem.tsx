@@ -4,7 +4,8 @@ import { TouchableOpacity,View,Text } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { styles } from "../styles/styles";
 import { useFonts } from 'expo-font';
-
+import "../global.css";
+import { useCustomFonts } from "@/hooks/useFonts";
 type ItemProps = {
     titulo: string,
     onPress: () => void,
@@ -14,7 +15,7 @@ type ItemProps = {
 
 const Item = ({titulo,onPress,status,motivo}:ItemProps) => {
     
-    
+    const fontsLoaded = useCustomFonts();
     return(
     <TouchableOpacity onPress={onPress} style={[styles.SolicitacaoItem,{overflow: 'visible'}]}>
         <Text className="text-xl font-montserratSemiBold px-5">
