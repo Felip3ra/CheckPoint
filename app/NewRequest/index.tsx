@@ -1,154 +1,155 @@
 import { Picker } from "@react-native-picker/picker";
-import { View,Text, TextInput, TouchableOpacity,Alert } from "react-native";
-import DateTimePicker from '@react-native-community/datetimepicker'
+import { View, Text, TextInput, TouchableOpacity, Alert } from "react-native";
+import DateTimePicker, { DateTimePickerEvent } from "@react-native-community/datetimepicker";
 import { useState } from "react";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import axios from "axios";
-function NewRequest() {
-    const [date,setDate] = useState<Date | null>(new Date)
-    const [mode,setMode] = useState<string | null>('date')
+
+interface RequestData {
+    cdPonto: string;
+    solicitacao: string;
+    status: string;
+    motivo: string;
+    descricao: string;
+    dataInicio: string;
+    dataFinal: string;
+    totalHoras: string;
+    arquivo?: string;
+}
+
+function NewRequest(): React.JSX.Element {
+    const [date, setDate] = useState<Date | null>(new Date());
+    const [mode, setMode] = useState<"date" | "time">("date");
     const [showDatePicker, setShowDatePicker] = useState<boolean>(false);
-    const ExibeDataPicker = () => {
-        setShowDatePicker(!showDatePicker)
-    }
-    const handleDateChange = (event: any, selectedDate: Date | undefined) => {
+
+    const ExibeDataPicker = (): void => {
+        setShowDatePicker(!showDatePicker);
+    };
+
+    const handleDateChange = (event: DateTimePickerEvent, selectedDate?: Date): void => {
         const currentDate = selectedDate || date;
         setDate(currentDate); // Atualiza a data selecionada
         setShowDatePicker(false); // Oculta o DateTimePicker após a seleção
     };
-    const handleCreateFixPointRequest = async () => {
-        try{
-            const API_URL = "http://192.168.15.116:3000/api/NewRequest"
-            
-            await axios.post(API_URL,{
-                cdPonto,
-                solicitacao,
-                status,
-                motivo,
-                descricao,
-                dataInicio,
-                dataFinal,
-                totalHoras,
-                arquivo
-            })
-        }
-        catch(error){
-            console.error('Erro ao criar usuário:', error);
-            Alert.alert('Erro', 'Ocorreu um erro ao criar o usuário.');
-        }
-    }
-    return(
 
+    const handleCreateFixPointRequest = async (): Promise<void> => {
+        try {
+            const API_URL = "http://192.168.15.116:3000/api/NewRequest";
+
+            const requestData: RequestData = {
+                cdPonto: "123", // Substitua por valores reais
+                solicitacao: "Ajuste de Ponto",
+                status: "Pendente",
+                motivo: "Consulta médica",
+                descricao: "Descrição do ocorrido",
+                dataInicio: date?.toLocaleDateString() || "",
+                dataFinal: date?.toLocaleDateString() || "",
+                totalHoras: "8",
+                arquivo: undefined, // Substitua por um arquivo real, se necessário
+            };
+
+            await axios.post(API_URL, requestData);
+            Alert.alert("Sucesso", "Solicitação criada com sucesso!");
+        } catch (error) {
+            console.error("Erro ao criar solicitação:", error);
+            Alert.alert("Erro", "Ocorreu um erro ao criar a solicitação.");
+        }
+    };
+
+    return (
         <View className="mx-11">
-            <Text className="font-montserratRegular text-base mt-3">
-                Tipo de Solicitacao
-            </Text>
+            <Text className="font-montserratRegular text-base mt-3">Tipo de Solicitação</Text>
             <View className="mt-1.5 bg-[#EDEDED] rounded-lg">
-            <Picker >
-            <Picker.Item label="Ajuste de Ponto" value="ajuste-ponto" />
+                <Picker>
+                    <Picker.Item label="Ajuste de Ponto" value="ajuste-ponto" />
                     <Picker.Item label="Férias" value="ferias" />
                     <Picker.Item label="Licença Médica" value="licenca-medica" />
-            </Picker>
+                </Picker>
             </View>
-            
+
             <View className="flex-row justify-between mt-1.5">
                 <View>
-                    <Text className="font-montserratRegular text-base">
-                        Data Inicial
-                    </Text>
+                    <Text className="font-montserratRegular text-base">Data Inicial</Text>
                     <View className="flex-row items-center bg-[#EDEDED] rounded-lg gap-3 px-3 py-1">
                         <TextInput
-                        placeholder="DD/MM/AAAA"
-                        value={date?.toLocaleDateString()}
-                        editable={false}
+                            placeholder="DD/MM/AAAA"
+                            value={date?.toLocaleDateString()}
+                            editable={false}
                         />
-                            
-                        
-                        <MaterialCommunityIcons name="calendar" size={24} onPress={ExibeDataPicker}/>
+                        <MaterialCommunityIcons name="calendar" size={24} onPress={ExibeDataPicker} />
                     </View>
-                    {
-                        showDatePicker && (<DateTimePicker
+                    {showDatePicker && (
+                        <DateTimePicker
                             testID="dateTimePicker"
                             value={date || new Date()}
                             mode={mode}
                             display="default"
                             onChange={handleDateChange}
-                            />)
-                    }
-                    
+                        />
+                    )}
                 </View>
                 <View>
-                    <Text className="font-montserratRegular text-base">
-                        Data Final
-                    </Text>
+                    <Text className="font-montserratRegular text-base">Data Final</Text>
                     <View className="flex-row items-center bg-[#EDEDED] rounded-lg gap-3 px-3 py-1">
                         <TextInput
-                        placeholder="DD/MM/AAAA"
-                        value={date?.toLocaleDateString()}
-                        editable={false}
+                            placeholder="DD/MM/AAAA"
+                            value={date?.toLocaleDateString()}
+                            editable={false}
                         />
-                            
-                        
-                        <MaterialCommunityIcons name="calendar" size={24} onPress={ExibeDataPicker}/>
+                        <MaterialCommunityIcons name="calendar" size={24} onPress={ExibeDataPicker} />
                     </View>
-                    {
-                        showDatePicker && (<DateTimePicker
+                    {showDatePicker && (
+                        <DateTimePicker
                             testID="dateTimePicker"
                             value={date || new Date()}
                             mode={mode}
                             display="default"
                             onChange={handleDateChange}
-                            />)
-                    }
+                        />
+                    )}
                 </View>
             </View>
-            <Text className="font-montserratRegular text-base mt-2">
-                Motivo
-            </Text>
+
+            <Text className="font-montserratRegular text-base mt-2">Motivo</Text>
             <View className="mt-1.5 bg-[#EDEDED] rounded-lg">
-            <Picker >
-            <Picker.Item label="Ajuste de Ponto" value="ajuste-ponto" />
+                <Picker>
+                    <Picker.Item label="Ajuste de Ponto" value="ajuste-ponto" />
                     <Picker.Item label="Férias" value="ferias" />
                     <Picker.Item label="Licença Médica" value="licenca-medica" />
-            </Picker>
+                </Picker>
             </View>
-            <Text className="font-montserratRegular text-base mt-2">
-                Total
-            </Text>
+
+            <Text className="font-montserratRegular text-base mt-2">Total</Text>
             <View className="bg-[#EDEDED] py-1 rounded-lg">
                 <TextInput
-                className="font-montserratRegular ml-2"
-                placeholder="Total de Horas"
+                    className="font-montserratRegular ml-2"
+                    placeholder="Total de Horas"
                 />
             </View>
-            <Text className="font-montserratRegular text-base mt-2">
-                Descreva o ocorrido
-            </Text>
-            
+
+            <Text className="font-montserratRegular text-base mt-2">Descreva o ocorrido</Text>
             <View className="bg-[#EDEDED] rounded-lg">
                 <TextInput
-                className="font-montserratRegular ml-2 h-32"
-                placeholder="Descricao do occorrido"
-                multiline={true}
-                numberOfLines={4}
-                textAlignVertical="top"
+                    className="font-montserratRegular ml-2 h-32"
+                    placeholder="Descrição do ocorrido"
+                    multiline={true}
+                    numberOfLines={4}
+                    textAlignVertical="top"
                 />
             </View>
-            <Text className="font-montserratRegular text-base mt-2">
-                Envie o arquivo(Opcional)
-            </Text>
-            <TouchableOpacity
-            className="p-5 bg-[#0097E2] opacity-30 rounded-lg"
-            >
+
+            <Text className="font-montserratRegular text-base mt-2">Envie o arquivo (Opcional)</Text>
+            <TouchableOpacity className="p-5 bg-[#0097E2] opacity-30 rounded-lg">
                 <Text className="font-montserratRegular text-base text-center">Selecione o arquivo</Text>
             </TouchableOpacity>
+
             <TouchableOpacity
-            className="p-5 bg-[#0097E2] rounded-lg mt-10"
+                className="p-5 bg-[#0097E2] rounded-lg mt-10"
+                onPress={handleCreateFixPointRequest}
             >
-                <Text className="font-montserratBold text-xl text-center color-white">Selecione o arquivo</Text>
+                <Text className="font-montserratBold text-xl text-center color-white">Enviar Solicitação</Text>
             </TouchableOpacity>
         </View>
-        
     );
 }
 

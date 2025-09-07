@@ -1,29 +1,25 @@
-import { Tabs} from "expo-router";
+import { Tabs } from "expo-router";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import ButtonPonto from "@/components/ButtonPonto";
-export default function Layout() {
-    
+
+export default function Layout(): React.JSX.Element {
     return (
         <Tabs
             screenOptions={{
                 tabBarStyle: {
-
                     paddingVertical: 10,
-
                 },
-                tabBarActiveTintColor: '#0097E2',
-                
+                tabBarActiveTintColor: "#0097E2",
             }}
         >
-            
             <Tabs.Screen
                 name="index"
                 options={{
-                    title: 'Home',
+                    title: "Home",
                     headerShown: false,
                     tabBarIcon: ({ size, color }) => (
                         <MaterialCommunityIcons name="home" size={size} color={color} />
-                    )
+                    ),
                 }}
             />
             <Tabs.Screen
@@ -31,16 +27,14 @@ export default function Layout() {
                 options={{
                     title: "Solicitações",
                     headerStyle: {
-                        backgroundColor: '#0097E2',
-                        
+                        backgroundColor: "#0097E2",
                     },
                     headerTitleStyle: {
-                        color: '#FBF7F4',
-                        
+                        color: "#FBF7F4",
                     },
                     tabBarIcon: ({ size, color }) => (
                         <MaterialCommunityIcons name="hand-wave-outline" size={size} color={color} />
-                    )
+                    ),
                 }}
             />
             <Tabs.Screen
@@ -70,22 +64,18 @@ export default function Layout() {
                 },
                     tabBarIcon: ({ size, color }) => (
                         <MaterialCommunityIcons name="chart-box-plus-outline" size={size} color={color} />
-                    )
+                    ),
                 }}
             />
-
             <Tabs.Screen
                 name="profile"
                 options={{
-
                     tabBarIcon: ({ size, color }) => (
                         <MaterialCommunityIcons name="account" size={size} color={color} />
-                    )
+                    ),
                 }}
             />
-           
-            
         </Tabs>
-    )
+    );
 }
 
