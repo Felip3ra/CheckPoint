@@ -13,26 +13,38 @@ function Login(): React.JSX.Element {
     const [email,setEmail] = useState<string | null>("")
     const [senha,setSenha] = useState<string | null>("")
     const {login} = useAuth()
-    const handleAutenticateUser = async() => {
-        try{
-            const API_URL = 'http://192.168.15.116:3000/api/Autentication';
-            
-            const response = await axios.post(API_URL,{email,senha});
-            console.log(response)
-            const {user} = response.data;
-            login({
-                id: user.id,
-                nome: user.NM_FUNCIONARIO,
-                email: user.NM_EMAIL
-            });
-            console.log(user.id)
-            router.replace('../(tabs)')
-        }
-        catch(error){
-            console.error('Erro ao fazer login:', error.response?.data || error.message);
-            Alert.alert('Erro', error.response?.data?.error || 'Ocorreu um erro ao fazer login.');
-        }
+    const handleAutenticateUser = async () => {
+  try {
+    const API_URL = 'http://192.168.15.116:3000/funcionarios/loginFuncionario';
+    
+    const response = await axios.post(API_URL, {
+      FUN_NM_EMAIL: email,
+      FUN_NM_SENHA: senha
+    });
+
+    if (response.data.success) {
+      const { token, funcionario } = response.data;
+
+      // Salvar dados no AuthContext
+      login({
+        id: funcionario.FUN_CD_USUARIO,
+        nome: funcionario.FUN_NM_NOME,
+        email: funcionario.FUN_NM_EMAIL
+      });
+
+      // Você pode salvar o token no AsyncStorage se quiser usar para chamadas autenticadas
+      // await AsyncStorage.setItem('token', token);
+
+      router.replace('../(tabs)');
+    } else {
+      Alert.alert('Erro', response.data.message);
     }
+  } catch (error) {
+    console.error('Erro ao fazer login:', error.response?.data || error.message);
+    Alert.alert('Erro', error.response?.data?.message || 'Ocorreu um erro ao fazer login.');
+  }
+};
+
     return (
         
 

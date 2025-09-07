@@ -5,6 +5,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import "../global.css";
 import { useCustomFonts } from "@/hooks/useFonts";
 import { useState } from "react";
+
 type TextInputProps = {
     Iconname: string;
     placeholder: string;
@@ -24,9 +25,10 @@ type TextInputProps = {
             <TextInput
                 placeholder={placeholder}
                 style={styles.TextBox}
-                className="font-montserratRegular"
+                className="font-montserratRegular flex-1"
                 onChangeText={onChangeText}
                 secureTextEntry={ispassword && !IsPSWD}
+                
                 
             />
             {ispassword && (

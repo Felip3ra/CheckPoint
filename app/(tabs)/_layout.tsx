@@ -46,22 +46,28 @@ export default function Layout() {
             <Tabs.Screen
            name="point"
            options={{
-            title: 'Bater ponto',
-            headerStyle: {
-                backgroundColor: '#0097E2'
-            },
-            headerTitleStyle: {
-                color: '#FBF7F4',
-            },
-            tabBarIcon: ({focused, size}) => (
-                <ButtonPonto size={size} focused={focused}/>
-            )
+                title: 'Bater ponto',
+                headerStyle: {
+                    backgroundColor: '#0097E2'
+                },
+                headerTitleStyle: {
+                    color: '#FBF7F4',
+                },
+                tabBarIcon: ({focused, size}) => (
+                    <ButtonPonto size={size} focused={focused}/>
+                )
            }}
            /> 
             <Tabs.Screen
                 name="statistics"
                 options={{
-
+                    title: 'Estatisticas',
+                    headerStyle: {
+                        backgroundColor: '#0097E2',
+                    },
+                    headerTitleStyle: {
+                    color: '#FBF7F4',
+                },
                     tabBarIcon: ({ size, color }) => (
                         <MaterialCommunityIcons name="chart-box-plus-outline" size={size} color={color} />
                     )

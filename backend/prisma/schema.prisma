@@ -1,0 +1,37 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlserver"
+  url      = env("DATABASE_URL")
+}
+
+model T_AJUSTE_PONTO {
+  TAP_CD_PONTO       Int       @id(map: "PK__T_AJUSTE__805AB33A83DE36FD") @unique(map: "UQ__T_AJUSTE__805AB33BF72022D4") @default(autoincrement())
+  TAP_NM_SOLICITACAO String?   @db.VarChar(255)
+  TAP_NM_STATUS      String?   @db.VarChar(255)
+  TAP_NM_DESCRICAO   String?   @db.VarChar(255)
+  TAP_NM_URL         String?   @db.VarChar(255)
+  TAP_DT_INICIAL     DateTime? @db.Date
+  TAP_DT_FINAL       DateTime? @db.Date
+  TAP_BL_APROVADO    Boolean?
+}
+
+model T_FUNCIONARIO {
+  FUN_CD_USUARIO     Int       @id(map: "PK__T_FUNCIO__84C1360CCFBEA8D2") @unique(map: "UQ__T_FUNCIO__84C1360D7B241534") @default(autoincrement())
+  FUN_NM_NOME        String?   @db.VarChar(255)
+  FUN_NM_EMAIL       String?   @db.VarChar(255)
+  FUN_NM_SENHA       String?   @db.VarChar(255)
+  FUN_DT_CRIACAO     DateTime? @default(now()) @db.DateTime
+  FUN_DT_MODIFICACAO DateTime? @db.DateTime
+}
+
+model T_PONTO {
+  PON_CD_PONTO       Int       @id(map: "PK__T_PONTO__0CF3ECE03A7FF45A") @unique(map: "UQ__T_PONTO__0CF3ECE152AD1002") @default(autoincrement())
+  PON_NM_PONTO       String?   @db.VarChar(255)
+  PON_NM_ENDERECO    String?   @db.VarChar(255)
+  PON_CD_USUARIO     Int?      @db.Int
+  PON_DT_PONTO       DateTime? @default(now()) @db.DateTime
+  PON_DT_MODIFICACAO String?   @db.VarChar(255)
+}

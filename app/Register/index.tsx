@@ -13,13 +13,13 @@ function Cadastrar(): React.JSX.Element {
     const [senha, setSenha] = useState('');
     const handleCreateUser = async () => {
         try{
-            const API_URL = 'http://192.168.15.116:3000/api/Register';
-            const userData = {
-                nome,
-                email,
-                senha,
-            };
-            await axios.post(API_URL,userData);
+            const API_URL = 'http://192.168.15.116:3000/funcionarios/criarFuncionario';
+            
+            await axios.post(API_URL,{
+                FUN_NM_NOME: nome,
+                FUN_NM_EMAIL: email,
+                FUN_NM_SENHA: senha
+            });
             Alert.alert("Sucesso","Usuário criado com sucesso!")
             router.replace("../Login")
         }
