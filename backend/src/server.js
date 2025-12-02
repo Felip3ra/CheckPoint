@@ -3,6 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import funcionarioRoutes from "./routes/funcionario.routes.js";
 import pontoRoutes from "./routes/ponto.routes.js";
+import apiRoutes from "./routes/api.routes.js";
 
 dotenv.config();
 
@@ -12,6 +13,7 @@ app.use(express.json());
 
 app.use("/funcionarios", funcionarioRoutes);
 app.use("/pontos", pontoRoutes);
+app.use("/api", apiRoutes);
 
 
 

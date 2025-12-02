@@ -3,7 +3,7 @@ import { View, Text, TextInput, TouchableOpacity, Alert } from "react-native";
 import DateTimePicker, { DateTimePickerEvent } from "@react-native-community/datetimepicker";
 import { useState } from "react";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import axios from "axios";
+import { criarSolicitacaoAjuste } from "@/services/requestService";
 
 interface RequestData {
     cdPonto: string;
@@ -19,25 +19,25 @@ interface RequestData {
 
 function NewRequest(): React.JSX.Element {
     const [date, setDate] = useState<Date | null>(new Date());
-    const [mode, setMode] = useState<"date" | "time">("date");
+    const [mode] = useState<"date" | "time">("date");
     const [showDatePicker, setShowDatePicker] = useState<boolean>(false);
+    const [loading, setLoading] = useState<boolean>(false);
 
-    const ExibeDataPicker = (): void => {
-        setShowDatePicker(!showDatePicker);
+    const toggleDatePicker = (): void => {
+        setShowDatePicker((prev) => !prev);
     };
 
     const handleDateChange = (event: DateTimePickerEvent, selectedDate?: Date): void => {
         const currentDate = selectedDate || date;
-        setDate(currentDate); // Atualiza a data selecionada
-        setShowDatePicker(false); // Oculta o DateTimePicker após a seleção
+        setDate(currentDate);
+        setShowDatePicker(false);
     };
 
     const handleCreateFixPointRequest = async (): Promise<void> => {
         try {
-            const API_URL = "http://192.168.15.116:3000/api/NewRequest";
-
+            setLoading(true);
             const requestData: RequestData = {
-                cdPonto: "123", // Substitua por valores reais
+                cdPonto: "123",
                 solicitacao: "Ajuste de Ponto",
                 status: "Pendente",
                 motivo: "Consulta médica",
@@ -45,14 +45,16 @@ function NewRequest(): React.JSX.Element {
                 dataInicio: date?.toLocaleDateString() || "",
                 dataFinal: date?.toLocaleDateString() || "",
                 totalHoras: "8",
-                arquivo: undefined, // Substitua por um arquivo real, se necessário
+                arquivo: undefined,
             };
 
-            await axios.post(API_URL, requestData);
+            await criarSolicitacaoAjuste(requestData);
             Alert.alert("Sucesso", "Solicitação criada com sucesso!");
-        } catch (error) {
-            console.error("Erro ao criar solicitação:", error);
-            Alert.alert("Erro", "Ocorreu um erro ao criar a solicitação.");
+        } catch (error: any) {
+            console.error("Erro ao criar solicitação:", error.message);
+            Alert.alert("Erro", error.message || "Ocorreu um erro ao criar a solicitação.");
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -71,12 +73,8 @@ function NewRequest(): React.JSX.Element {
                 <View>
                     <Text className="font-montserratRegular text-base">Data Inicial</Text>
                     <View className="flex-row items-center bg-[#EDEDED] rounded-lg gap-3 px-3 py-1">
-                        <TextInput
-                            placeholder="DD/MM/AAAA"
-                            value={date?.toLocaleDateString()}
-                            editable={false}
-                        />
-                        <MaterialCommunityIcons name="calendar" size={24} onPress={ExibeDataPicker} />
+                        <TextInput placeholder="DD/MM/AAAA" value={date?.toLocaleDateString()} editable={false} />
+                        <MaterialCommunityIcons name="calendar" size={24} onPress={toggleDatePicker} />
                     </View>
                     {showDatePicker && (
                         <DateTimePicker
@@ -91,22 +89,9 @@ function NewRequest(): React.JSX.Element {
                 <View>
                     <Text className="font-montserratRegular text-base">Data Final</Text>
                     <View className="flex-row items-center bg-[#EDEDED] rounded-lg gap-3 px-3 py-1">
-                        <TextInput
-                            placeholder="DD/MM/AAAA"
-                            value={date?.toLocaleDateString()}
-                            editable={false}
-                        />
-                        <MaterialCommunityIcons name="calendar" size={24} onPress={ExibeDataPicker} />
+                        <TextInput placeholder="DD/MM/AAAA" value={date?.toLocaleDateString()} editable={false} />
+                        <MaterialCommunityIcons name="calendar" size={24} onPress={toggleDatePicker} />
                     </View>
-                    {showDatePicker && (
-                        <DateTimePicker
-                            testID="dateTimePicker"
-                            value={date || new Date()}
-                            mode={mode}
-                            display="default"
-                            onChange={handleDateChange}
-                        />
-                    )}
                 </View>
             </View>
 
@@ -121,10 +106,7 @@ function NewRequest(): React.JSX.Element {
 
             <Text className="font-montserratRegular text-base mt-2">Total</Text>
             <View className="bg-[#EDEDED] py-1 rounded-lg">
-                <TextInput
-                    className="font-montserratRegular ml-2"
-                    placeholder="Total de Horas"
-                />
+                <TextInput className="font-montserratRegular ml-2" placeholder="Total de Horas" />
             </View>
 
             <Text className="font-montserratRegular text-base mt-2">Descreva o ocorrido</Text>
@@ -132,7 +114,7 @@ function NewRequest(): React.JSX.Element {
                 <TextInput
                     className="font-montserratRegular ml-2 h-32"
                     placeholder="Descrição do ocorrido"
-                    multiline={true}
+                    multiline
                     numberOfLines={4}
                     textAlignVertical="top"
                 />
@@ -146,8 +128,12 @@ function NewRequest(): React.JSX.Element {
             <TouchableOpacity
                 className="p-5 bg-[#0097E2] rounded-lg mt-10"
                 onPress={handleCreateFixPointRequest}
+                disabled={loading}
+                style={loading ? { opacity: 0.7 } : undefined}
             >
-                <Text className="font-montserratBold text-xl text-center color-white">Enviar Solicitação</Text>
+                <Text className="font-montserratBold text-xl text-center color-white">
+                    {loading ? "Enviando..." : "Enviar Solicitação"}
+                </Text>
             </TouchableOpacity>
         </View>
     );

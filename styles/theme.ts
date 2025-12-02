@@ -1,0 +1,45 @@
+export const theme = {
+    colors: {
+        primary: "#0097E2",
+        primarySoft: "#6FDFFF",
+        background: "#FBF7F4",
+        surface: "#FFFFFF",
+        surfaceMuted: "#EDEDED",
+        text: "#0F172A",
+        muted: "#64748B",
+        border: "#D6D6D6",
+        success: "#00DF72",
+        warning: "#FF9603",
+        danger: "#FBA6A8",
+    },
+    spacing: {
+        xs: 4,
+        sm: 8,
+        md: 12,
+        lg: 16,
+        xl: 24,
+        xxl: 32,
+    },
+    radius: {
+        sm: 6,
+        md: 8,
+        lg: 12,
+        xl: 24,
+        pill: 999,
+    },
+    shadow: {
+        card: {
+            shadowColor: "#000",
+            shadowOpacity: 0.06,
+            shadowOffset: { width: 0, height: 8 },
+            shadowRadius: 12,
+            elevation: 3,
+        },
+    },
+    fontFamily: {
+        regular: "MontserratRegular",
+        medium: "MontserratMedium",
+        semiBold: "MontserratSemiBold",
+        bold: "MontserratBold",
+    },
+};

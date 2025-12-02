@@ -1,41 +1,33 @@
-import { View,Text } from "react-native"
+import { View, Text } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import "../global.css";
-import { useCustomFonts } from "@/hooks/useFonts";
+import { theme } from "@/styles/theme";
+
 type RegistroPontoProps = {
     ponto: string;
     horario: string;
-}
+};
 
-const RegistroPonto = ({ponto,horario}: RegistroPontoProps) =>{
-    const fontsLoaded = useCustomFonts();
-    return(
-        <View className="flex-row justify-around border border-[#D6D6D6] py-2 mt-3 items-center gap-20 rounded-lg">  
-        <MaterialCommunityIcons
-        name={
-            ponto == "Entrada" ? "login" :
-            ponto == "Almoço" ? "food" :
-            ponto == "Volta" ? "desk" :
-            ponto == "Saída" ? "logout" : "cross"
-        }
-        size={25}
-        color={
-            ponto == "Entrada" ? "#00DF72" :
-            ponto == "Almoço" ? "#FF9603" :
-            ponto == "Volta" ? "#00DF72" :
-            ponto == "Saída" ? "#FBA6A8" : "#FBA6A8"
-        }
-        />
-        <View className="gap-1.5 items-center">
-            <Text className="font-montserratSemiBold text-base">{ponto}</Text>
-            <Text className="font-montserratRegular text-base">{horario}</Text>
+const iconMap: Record<string, { icon: keyof typeof MaterialCommunityIcons.glyphMap; color: string }> = {
+    Entrada: { icon: "login", color: theme.colors.success },
+    Almoço: { icon: "food", color: theme.colors.warning },
+    Volta: { icon: "desk", color: theme.colors.success },
+    Saída: { icon: "logout", color: theme.colors.danger },
+};
+
+const RegistroPonto = ({ ponto, horario }: RegistroPontoProps): React.JSX.Element => {
+    const iconConfig = iconMap[ponto] || { icon: "clock-outline", color: theme.colors.muted };
+
+    return (
+        <View className="flex-row justify-around border border-[#D6D6D6] py-2 mt-3 items-center gap-20 rounded-lg">
+            <MaterialCommunityIcons name={iconConfig.icon} size={25} color={iconConfig.color} />
+            <View className="gap-1.5 items-center">
+                <Text className="font-montserratSemiBold text-base">{ponto}</Text>
+                <Text className="font-montserratRegular text-base">{horario}</Text>
+            </View>
+            <MaterialCommunityIcons name="file-document-outline" size={25} />
         </View>
-        <MaterialCommunityIcons
-        name="file-document-outline"
-        size={25}
-        />
-    </View>
-    )
-    
-}
-export default RegistroPonto
+    );
+};
+
+export default RegistroPonto;

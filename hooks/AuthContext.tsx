@@ -1,9 +1,16 @@
 import React, { createContext, useState, useContext } from "react";
 
 // Define os tipos para o contexto
+interface UserData {
+  id: number;
+  nome: string;
+  email: string;
+  token?: string;
+}
+
 interface AuthContextType {
-  user: { id: number; nome: string; email: string } | null;
-  login: (userData: { id: number; nome: string; email: string }) => void;
+  user: UserData | null;
+  login: (userData: UserData) => void;
   logout: () => void;
 }
 
@@ -12,10 +19,10 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 // Provedor do contexto
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [user, setUser] = useState<{ id: number; nome: string; email: string } | null>(null);
+  const [user, setUser] = useState<UserData | null>(null);
 
   // Função para fazer login
-  const login = (userData: { id: number; nome: string; email: string }) => {
+  const login = (userData: UserData) => {
     setUser(userData);
   };
 

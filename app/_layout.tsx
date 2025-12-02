@@ -1,5 +1,5 @@
 import { Stack } from "expo-router/stack";
-import "../global.css"; // Importação do global.css para carregar os estilos do Tailwind
+import "../global.css";
 import { AddressProvider } from "@/hooks/AddressContext";
 import { AuthProvider } from "@/hooks/AuthContext";
 
@@ -26,7 +26,7 @@ export default function Layout(): React.JSX.Element {
                     <Stack.Screen
                         name="(tabs)"
                         options={{
-                            headerShown: false, // Oculta o header para as telas dentro de "(tabs)"
+                            headerShown: false,
                         }}
                     />
                 </Stack>

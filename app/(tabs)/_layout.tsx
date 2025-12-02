@@ -38,30 +38,28 @@ export default function Layout(): React.JSX.Element {
                 }}
             />
             <Tabs.Screen
-           name="point"
-           options={{
-                title: 'Bater ponto',
-                headerStyle: {
-                    backgroundColor: '#0097E2'
-                },
-                headerTitleStyle: {
-                    color: '#FBF7F4',
-                },
-                tabBarIcon: ({focused, size}) => (
-                    <ButtonPonto size={size} focused={focused}/>
-                )
-           }}
-           /> 
+                name="point"
+                options={{
+                    title: "Bater ponto",
+                    headerStyle: {
+                        backgroundColor: "#0097E2",
+                    },
+                    headerTitleStyle: {
+                        color: "#FBF7F4",
+                    },
+                    tabBarIcon: ({ focused, size }) => <ButtonPonto size={size} focused={focused} />,
+                }}
+            />
             <Tabs.Screen
                 name="statistics"
                 options={{
-                    title: 'Estatisticas',
+                    title: "Estatísticas",
                     headerStyle: {
-                        backgroundColor: '#0097E2',
+                        backgroundColor: "#0097E2",
                     },
                     headerTitleStyle: {
-                    color: '#FBF7F4',
-                },
+                        color: "#FBF7F4",
+                    },
                     tabBarIcon: ({ size, color }) => (
                         <MaterialCommunityIcons name="chart-box-plus-outline" size={size} color={color} />
                     ),
@@ -78,4 +76,3 @@ export default function Layout(): React.JSX.Element {
         </Tabs>
     );
 }
-

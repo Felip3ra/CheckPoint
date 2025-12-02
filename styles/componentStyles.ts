@@ -1,0 +1,69 @@
+import { StyleSheet } from "react-native";
+import { theme } from "./theme";
+
+export const componentStyles = StyleSheet.create({
+    primaryButton: {
+        backgroundColor: theme.colors.primary,
+        borderRadius: theme.radius.md,
+        justifyContent: "center",
+        alignItems: "center",
+        height: 50,
+    },
+    primaryButtonText: {
+        fontFamily: theme.fontFamily.bold,
+        fontSize: 18,
+        color: theme.colors.background,
+        textAlign: "center",
+    },
+    textInputWrapper: {
+        flexDirection: "row",
+        alignItems: "center",
+        backgroundColor: theme.colors.surfaceMuted,
+        height: 50,
+        borderRadius: theme.radius.md,
+        paddingHorizontal: theme.spacing.md,
+        width: "100%",
+    },
+    textInput: {
+        flex: 1,
+        paddingHorizontal: theme.spacing.sm,
+        fontFamily: theme.fontFamily.regular,
+        fontSize: 15,
+        color: theme.colors.text,
+    },
+    listItem: {
+        borderColor: theme.colors.border,
+        borderWidth: 1,
+        borderRadius: theme.radius.md,
+        justifyContent: "center",
+        alignItems: "center",
+        paddingVertical: theme.spacing.md,
+        gap: theme.spacing.sm,
+        marginBottom: theme.spacing.md,
+        backgroundColor: theme.colors.surface,
+    },
+    chip: {
+        flexDirection: "row",
+        alignItems: "center",
+        paddingVertical: theme.spacing.sm,
+        paddingHorizontal: theme.spacing.md,
+        borderRadius: theme.radius.lg,
+        gap: theme.spacing.sm,
+        borderWidth: 1,
+        borderColor: theme.colors.border,
+    },
+    cardContainer: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        padding: theme.spacing.lg,
+        height: 150,
+    },
+    floatingAction: {
+        position: "absolute",
+        backgroundColor: theme.colors.primary,
+        borderRadius: theme.radius.lg,
+        padding: theme.spacing.md,
+        bottom: theme.spacing.lg,
+        right: 0,
+    },
+});

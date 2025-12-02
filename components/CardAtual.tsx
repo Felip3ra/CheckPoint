@@ -2,50 +2,77 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Card, ProgressBar } from "react-native-paper";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { styles } from "../styles/styles";
 import "../global.css";
-import { useCustomFonts } from "@/hooks/useFonts";
-export default function CardAtual() {
-    const fontsLoaded = useCustomFonts();
+import { theme } from "@/styles/theme";
+
+export default function CardAtual(): React.JSX.Element {
     return (
-        <View style={styles.containerCard}>
-            {/* Card 1 - Progresso */}
-            <Card style={styles.card}>
+        <View style={cardStyles.wrapper}>
+            <Card style={cardStyles.card}>
                 <Card.Content>
-                    <View style={{alignItems: "center"}}>
-                    <Text style={{fontSize: 16, fontWeight: 'bold',fontFamily: 'Montserrat-Regular'}}>Seu dia hoje</Text>
-                    <MaterialCommunityIcons
-                        name="reload"
-                        size={20}
-                        color='black'
-                    />
-                    <View style={styles.LabelCard}>
-                        <View style={{alignItems: "center"}}>
-                            <Text style={{fontSize: 14, fontWeight: 'bold',fontFamily: 'Montserrat-Regular'}}>
-                                Progresso
-                            </Text>
-                            <Text>
-                                0%
-                            </Text>
-                        </View>
-                        <View style={{alignItems: "center"}}>
-                            <Text>
-                                Saída Prevista
-                            </Text>
-                            <Text>
-                                16:00H
-                            </Text>
-                        </View>
-                        
+                    <View style={cardStyles.header}>
+                        <Text style={cardStyles.title}>Seu dia hoje</Text>
+                        <MaterialCommunityIcons name="reload" size={20} color={theme.colors.text} />
                     </View>
-                    <ProgressBar progress={0.0} color='#6200ee' style={styles.ProgressBar}/>
+                    <View style={cardStyles.row}>
+                        <View style={cardStyles.center}>
+                            <Text style={cardStyles.label}>Progresso</Text>
+                            <Text style={cardStyles.value}>0%</Text>
+                        </View>
+                        <View style={cardStyles.center}>
+                            <Text style={cardStyles.label}>Saída Prevista</Text>
+                            <Text style={cardStyles.value}>16:00H</Text>
+                        </View>
                     </View>
-                </Card.Content>
+                    <ProgressBar progress={0.0} color={theme.colors.primary} style={cardStyles.progress} />
+                </View>
             </Card>
-
-
         </View>
     );
 }
 
-
+const cardStyles = StyleSheet.create({
+    wrapper: {
+        flexDirection: "row",
+        justifyContent: "center",
+    },
+    card: {
+        width: "100%",
+        paddingVertical: 4,
+    },
+    header: {
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between",
+        marginBottom: 6,
+    },
+    title: {
+        fontSize: 16,
+        fontFamily: theme.fontFamily.bold,
+        color: theme.colors.text,
+    },
+    row: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        marginTop: 6,
+        marginBottom: 8,
+    },
+    center: {
+        alignItems: "center",
+        flex: 1,
+    },
+    label: {
+        fontFamily: theme.fontFamily.medium,
+        fontSize: 13,
+        color: theme.colors.muted,
+    },
+    value: {
+        fontFamily: theme.fontFamily.bold,
+        fontSize: 14,
+        color: theme.colors.text,
+    },
+    progress: {
+        height: 10,
+        borderRadius: theme.radius.lg,
+    },
+});

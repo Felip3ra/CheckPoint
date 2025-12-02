@@ -1,217 +1,21 @@
+import React, { useEffect, useMemo, useState } from "react";
 import { View, Text, SafeAreaView, Modal, TouchableOpacity, Alert } from "react-native";
-<<<<<<< HEAD
-import React, { useState, useEffect } from "react";
-=======
-import React, { useState, useEffect, useContext } from "react";
->>>>>>> 4b44011caa73371b359958c8f98baddd67ba0930
 import { Picker } from "@react-native-picker/picker";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import Mapa from "@/components/maps";
 import LottieView from "lottie-react-native";
-import { styles } from "@/styles/styles";
-import { useAddressContext } from "@/hooks/AddressContext";
-import axios from "axios";
 import { router } from "expo-router";
+import Mapa from "@/components/maps";
+import { useAddressContext } from "@/hooks/AddressContext";
 import { useAuth } from "@/hooks/AuthContext";
-<<<<<<< HEAD
+import { pointStyles } from "@/styles/pointStyles";
+import { theme } from "@/styles/theme";
+import { criarPonto } from "@/services/pontoService";
+import Acessar from "@/components/Acessar";
 
-export default function Point(): React.JSX.Element {
-  const { user } = useAuth(); // contém { id, nome, token, ... }
-  let intervalo: any;
-
-  enum Pontos {
-    ponto1 = "Entrada",
-    ponto2 = "Almoço",
-    ponto3 = "Volta do Almoço",
-    ponto4 = "Saída",
-    default = "Selecione o tipo de ponto",
-  }
-
-  const [tipoPonto, setTipoPonto] = useState<string | null>(Pontos.default);
-  const [Endereco, setEndereco] = useState<string | null>("");
-  const [modal, setModal] = useState<boolean>(false);
-  const [DataHoje, setDataHoje] = useState<string | null>("");
-
-  const { address } = useAddressContext();
-  let endereco = `${address?.street}, ${address?.streetNumber} - ${address?.postalCode} - ${address?.region} - ${address?.country}`;
-
-  // Função para registrar ponto
-  const handleAddPoint = async () => {
-    try {
-      const API_URL = "http://192.168.15.116:3000/pontos/criarPonto";
-        console.log(user?.id);
-      await axios.post(
-        API_URL,
-        {
-          PON_CD_USUARIO: user?.id,
-          PON_NM_PONTO: tipoPonto,
-          PON_NM_ENDERECO: endereco,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${user?.token}`, // envia o JWT no header
-          },
-        }
-      );
-
-      ShowModal();
-    } catch (error) {
-      console.error("Erro ao criar Ponto:", error);
-      Alert.alert("Erro", "Ocorreu um erro ao criar o Ponto.");
-    }
-  };
-
-  // Atualização da data em tempo real
-  useEffect(() => {
-    const atualizarData = () => {
-      const novaData = new Date().toLocaleDateString("pt-BR", {
-        hour: "numeric",
-        minute: "numeric",
-        second: "numeric",
-        weekday: "long",
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-        hour12: false,
-        timeZone: "America/Sao_Paulo",
-      });
-
-      setDataHoje(novaData);
-    };
-
-    intervalo = setInterval(atualizarData, 1000);
-    atualizarData();
-
-    return () => clearInterval(intervalo);
-  }, []);
-
-  function ShowModal() {
-    clearInterval(intervalo);
-    setModal(true);
-  }
-
-  function CloseModal() {
-    setModal(false);
-    router.replace("/(tabs)");
-  }
-
-  return (
-    <SafeAreaView className="flex bg-[#FBF7F4]">
-      {/* Modal de comprovante */}
-      <Modal animationType="slide" visible={modal}>
-        <View className="mx-9">
-          <Text className="text-center mt-7 font-montserratBold text-2xl">
-            Comprovante de Ponto
-          </Text>
-
-          <View className="items-center my-4">
-            <LottieView
-              source={require("../../assets/checked-animation.json")}
-              autoPlay={true}
-              loop={false}
-              style={{ width: 150, height: 150 }}
-            />
-          </View>
-
-          <Text className="text-center mb-5 font-montserratBold text-2xl">
-            {tipoPonto}
-          </Text>
-
-          <Text className="mt-5 font-montserratMedium text-sm">
-            Registrado em: {DataHoje}
-          </Text>
-
-          <Text className="text-center mt-5 font-montserratBold text-xl">
-            Identificação do empregado
-          </Text>
-
-          <View className="gap-5 mt-5">
-            <Text className="font-montserratMedium text-sm">
-              <Text className="font-montserratBold text-sm">Nome:</Text>{" "}
-              {user?.nome}
-            </Text>
-            <Text className="font-montserratMedium text-sm">
-              <Text className="font-montserratBold text-sm">Matrícula:</Text>{" "}
-              {user?.id}
-            </Text>
-            <Text className="font-montserratMedium text-sm">
-              <Text className="font-montserratBold text-sm">Jornada:</Text> 09:00
-              às 16:00
-            </Text>
-            <Text className="font-montserratMedium text-sm">
-              <Text className="font-montserratBold text-sm">Local:</Text>{" "}
-              {endereco}
-            </Text>
-          </View>
-
-          <TouchableOpacity style={styles.BtnAcessar} onPress={ShowModal}>
-            <Text className="font-montserratBold text-xl color-white">
-              Baixar Comprovante
-            </Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.BtnAcessar} onPress={CloseModal}>
-            <Text className="font-montserratBold text-xl color-white">
-              Finalizar
-            </Text>
-          </TouchableOpacity>
-        </View>
-      </Modal>
-
-      {/* Conteúdo principal */}
-      <View className="mx-7">
-        <Text className="font-montserratRegular text-xl mt-9">
-          Horário do ponto
-        </Text>
-        <Text className="font-montserratMedium text-xl mt-8">{DataHoje}</Text>
-
-        <Text className="font-montserratRegular text-xl mt-4 mb-1.5">
-          Tipo de ponto
-        </Text>
-        <View className="rounded-lg bg-[#EDEDED]">
-          <Picker
-            selectedValue={tipoPonto}
-            onValueChange={(itemValue) => setTipoPonto(itemValue)}
-            style={{ fontFamily: "font-montserratRegular" }}
-          >
-            {Object.values(Pontos)
-              .filter((value) => typeof value === "string")
-              .map((ponto, index) => (
-                <Picker.Item key={index} label={ponto} value={ponto} />
-              ))}
-          </Picker>
-        </View>
-
-        <Text className="font-montserratRegular text-xl mb-1.5 mt-5">
-          Localização
-        </Text>
-        <View className="flex-row items-center gap-20 py-5 pl-5 border-[#D6D6D6] border rounded-lg">
-          <Text className="font-montserratRegular text-xl">
-            {address?.street}, {address?.streetNumber} - {address?.postalCode}
-          </Text>
-          <MaterialCommunityIcons name="reload" size={24} />
-        </View>
-
-        <View className="h-72 flex-row mt-4">
-          <Mapa />
-        </View>
-
-        <TouchableOpacity style={styles.BtnAcessar} onPress={handleAddPoint}>
-          <Text className="font-montserratBold text-xl color-white text-center">
-            Bater ponto
-          </Text>
-        </TouchableOpacity>
-      </View>
-    </SafeAreaView>
-  );
-}
-=======
-
-// Define o enum para os tipos de ponto
 enum Pontos {
     Entrada = "Entrada",
     Almoco = "Almoço",
-    VoltaDoAlmoco = "Volta do Almoço",
+    VoltaDoAlmoco = "Volta",
     Saida = "Saída",
     Default = "Selecione o tipo de ponto",
 }
@@ -223,12 +27,16 @@ export default function Point(): React.JSX.Element {
     const [tipoPonto, setTipoPonto] = useState<Pontos>(Pontos.Default);
     const [dataHoje, setDataHoje] = useState<string>("");
     const [modal, setModal] = useState<boolean>(false);
+    const [saving, setSaving] = useState<boolean>(false);
 
-    const endereco = `${address?.street}, ${address?.streetNumber} - ${address?.postalCode} - ${address?.region} - ${address?.country}`;
+    const endereco = useMemo(() => {
+        if (!address) return "";
+        return `${address.street || ""}, ${address.streetNumber || ""} - ${address.postalCode || ""} - ${
+            address.region || ""
+        } - ${address.country || ""}`;
+    }, [address]);
 
     useEffect(() => {
-        let intervalo: NodeJS.Timeout;
-
         const atualizarData = () => {
             const novaData = new Date().toLocaleDateString("pt-BR", {
                 hour: "numeric",
@@ -244,94 +52,89 @@ export default function Point(): React.JSX.Element {
             setDataHoje(novaData);
         };
 
-        intervalo = setInterval(atualizarData, 1000);
+        const intervalo = setInterval(atualizarData, 1000);
         atualizarData();
-
         return () => clearInterval(intervalo);
     }, []);
 
     const handleAddPoint = async (): Promise<void> => {
+        if (!user?.id) {
+            Alert.alert("Atenção", "Usuário não identificado.");
+            return;
+        }
+        if (tipoPonto === Pontos.Default) {
+            Alert.alert("Atenção", "Selecione o tipo de ponto.");
+            return;
+        }
         try {
-            const API_URL = "http://192.168.15.116:3000/api/Point";
-            console.log(user?.id);
-
-            await axios.post(API_URL, {
-                CodigoFuncionario: user!.id,
+            setSaving(true);
+            await criarPonto({
+                userId: user.id,
                 tipoPonto,
                 endereco,
+                token: user.token,
             });
-
-            ShowModal();
-        } catch (error) {
-            console.error("Erro ao criar Ponto:", error);
-            Alert.alert("Erro", "Ocorreu um erro ao criar o Ponto.");
+            setModal(true);
+        } catch (error: any) {
+            console.error("Erro ao criar Ponto:", error.message);
+            Alert.alert("Erro", error.message || "Ocorreu um erro ao criar o Ponto.");
+        } finally {
+            setSaving(false);
         }
     };
 
-    const ShowModal = (): void => {
-        setModal(true);
-    };
-
-    const CloseModal = (): void => {
+    const closeModal = (): void => {
         setModal(false);
         router.replace("/(tabs)");
     };
 
     return (
-        <SafeAreaView className="flex bg-[#FBF7F4]">
+        <SafeAreaView style={pointStyles.screen}>
             <Modal animationType="slide" visible={modal}>
-                <View className="mx-9">
-                    <Text className="text-center mt-7 font-montserratBold text-2xl">
-                        Comprovante de Ponto
-                    </Text>
-                    <View className="items-center my-4">
+                <View style={pointStyles.modalBox}>
+                    <Text style={pointStyles.modalTitle}>Comprovante de Ponto</Text>
+                    <View style={{ alignItems: "center", marginVertical: theme.spacing.lg }}>
                         <LottieView
                             source={require("../../assets/checked-animation.json")}
-                            autoPlay={true}
+                            autoPlay
                             loop={false}
                             style={{ width: 150, height: 150 }}
                         />
                     </View>
-                    <Text className="text-center mb-5 font-montserratBold text-2xl">
-                        Ponto de Entrada
-                    </Text>
-                    <Text className="mt-5 font-montserratMedium text-sm">
-                        Registrado em: {dataHoje}
-                    </Text>
-                    <Text className="text-center mt-5 font-montserratBold text-xl">
-                        Identificação do empregado
-                    </Text>
-                    <View className="gap-5 mt-5">
-                        <Text className="font-montserratMedium text-sm">
-                            <Text className="font-montserratBold text-sm">Nome:</Text> {user!.nome}
+                    <Text style={pointStyles.modalTitle}>{tipoPonto}</Text>
+                    <Text style={pointStyles.modalDate}>Registrado em: {dataHoje}</Text>
+                    <Text style={pointStyles.modalSectionTitle}>Identificação do empregado</Text>
+                    <View style={pointStyles.modalRow}>
+                        <Text style={pointStyles.modalText}>
+                            <Text style={{ fontFamily: theme.fontFamily.bold }}>Nome:</Text> {user?.nome}
                         </Text>
-                        <Text className="font-montserratMedium text-sm">
-                            <Text className="font-montserratBold text-sm">Matrícula:</Text> 000.000.000-00
+                        <Text style={pointStyles.modalText}>
+                            <Text style={{ fontFamily: theme.fontFamily.bold }}>Matrícula:</Text> {user?.id}
                         </Text>
-                        <Text className="font-montserratMedium text-sm">
-                            <Text className="font-montserratBold text-sm">Jornada:</Text> 09:00 às 16:00
+                        <Text style={pointStyles.modalText}>
+                            <Text style={{ fontFamily: theme.fontFamily.bold }}>Jornada:</Text> 09:00 às 16:00
                         </Text>
-                        <Text className="font-montserratMedium text-sm">
-                            <Text className="font-montserratBold text-sm">Local:</Text> {endereco}
+                        <Text style={pointStyles.modalText}>
+                            <Text style={{ fontFamily: theme.fontFamily.bold }}>Local:</Text> {endereco || "Não informado"}
                         </Text>
                     </View>
-                    <TouchableOpacity style={styles.BtnAcessar} onPress={ShowModal}>
-                        <Text className="font-montserratBold text-xl color-white">Baixar Comprovante</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.BtnAcessar} onPress={CloseModal}>
-                        <Text className="font-montserratBold text-xl color-white">Finalizar</Text>
-                    </TouchableOpacity>
+                    <View style={{ gap: theme.spacing.md, marginTop: theme.spacing.xl }}>
+                        <Acessar tipo="Baixar Comprovante" disabled />
+                        <Acessar tipo="Finalizar" onPress={closeModal} />
+                    </View>
                 </View>
             </Modal>
-            <View className="mx-7">
-                <Text className="font-montserratRegular text-xl mt-9">Horário do ponto</Text>
-                <Text className="font-montserratMedium text-xl mt-8">{dataHoje}</Text>
-                <Text className="font-montserratRegular text-xl mt-4 mb-1.5">Tipo de ponto</Text>
-                <View className="rounded-lg bg-[#EDEDED]">
+
+            <View style={pointStyles.wrapper}>
+                <Text style={pointStyles.title}>Horário do ponto</Text>
+                <Text style={pointStyles.subtitle}>{dataHoje}</Text>
+
+                <Text style={pointStyles.subtitle}>Tipo de ponto</Text>
+                <View style={pointStyles.pickerWrapper}>
                     <Picker
                         selectedValue={tipoPonto}
                         onValueChange={(itemValue) => setTipoPonto(itemValue as Pontos)}
-                        style={{ fontFamily: "font-montserratRegular" }}
+                        style={{ fontFamily: theme.fontFamily.regular }}
                     >
                         {Object.values(Pontos)
                             .filter((value) => typeof value === "string")
@@ -340,21 +143,23 @@ export default function Point(): React.JSX.Element {
                             ))}
                     </Picker>
                 </View>
-                <Text className="font-montserratRegular text-xl mb-1.5 mt-5">Localização</Text>
-                <View className="flex-row items-center gap-20 py-5 pl-5 border-[#D6D6D6] border rounded-lg">
-                    <Text className="font-montserratRegular text-xl">
-                        {address?.street}, {address?.streetNumber} - {address?.postalCode}
+
+                <Text style={pointStyles.subtitle}>Localização</Text>
+                <View style={pointStyles.addressBox}>
+                    <Text className="font-montserratRegular text-lg" style={{ flex: 1 }}>
+                        {endereco || "Coletando localização..."}
                     </Text>
                     <MaterialCommunityIcons name="reload" size={24} />
                 </View>
-                <View className="h-72 flex-row mt-4">
+
+                <View style={pointStyles.mapArea}>
                     <Mapa />
                 </View>
-                <TouchableOpacity style={styles.BtnAcessar} onPress={handleAddPoint}>
-                    <Text className="font-montserratBold text-xl color-white text-center">Bater ponto</Text>
-                </TouchableOpacity>
+
+                <View style={{ marginTop: theme.spacing.lg }}>
+                    <Acessar tipo="Bater ponto" onPress={handleAddPoint} loading={saving} />
+                </View>
             </View>
         </SafeAreaView>
     );
 }
->>>>>>> 4b44011caa73371b359958c8f98baddd67ba0930

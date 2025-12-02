@@ -1,62 +1,51 @@
 import React, { useEffect, useState } from "react";
-import { View,Text,TouchableOpacity, SafeAreaView } from "react-native";
-import { Ionicons, Entypo, FontAwesome5 } from "@expo/vector-icons";
-import '../global.css';
+import { View, Text, TouchableOpacity, SafeAreaView } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import "../global.css";
 import { useAuth } from "@/hooks/AuthContext";
-import axios from "axios";
-export default function DataPickerSelect({user}) : React.JSX.Element {
-    const [loading, setLoading] = useState(true);
-      const [estatisticas, setEstatisticas] = useState(null);
-    
-      const [inicio, setInicio] = useState(new Date("2024-12-01"));
-      const [fim, setFim] = useState(new Date("2024-12-18"));
-    
-      const [isPickerVisible, setPickerVisible] = useState(false);
-      const [pickerType, setPickerType] = useState("inicio");
-    
-      const userId = 1; // exemplo
-    
-      const formatarData = (data) => {
+import { theme } from "@/styles/theme";
+
+type PickerType = "inicio" | "fim";
+
+export default function DataPickerSelect(): React.JSX.Element {
+    const { user } = useAuth();
+    const [inicio, setInicio] = useState<Date>(new Date());
+    const [fim, setFim] = useState<Date>(new Date());
+    const [pickerVisible, setPickerVisible] = useState<boolean>(false);
+    const [pickerType, setPickerType] = useState<PickerType>("inicio");
+
+    const formatarData = (data: Date): string => {
         const d = new Date(data);
         return d.toLocaleDateString("pt-BR");
-      };
-        useEffect(() => {
-            try{
-            
-                const fetchDataPicker = async () => {
-                    const API_URL = `http://192.168.15.116:3000/api/GetStatistics/${user.id}`
-                console.log(user?.id);
-                    await axios.post(API_URL,{
-                        CodigoFuncionario : user!.id,
-                        
+    };
 
-                    })
-                }
-                
-            
-        }
-        catch(error){
-            console.error('Erro ao criar Ponto:', error);
-            Alert.alert('Erro', 'Ocorreu um erro ao criar o Ponto.');
-        }
-        },[inicio,fim]);
-    return(
+    useEffect(() => {
+        // Aqui podemos disparar requests de estatística quando datas mudarem
+    }, [inicio, fim, user?.id]);
+
+    const abrirPicker = (tipo: PickerType): void => {
+        setPickerType(tipo);
+        setPickerVisible(true);
+    };
+
+    return (
         <SafeAreaView>
-            <View className="p-5 rounded-xl bg-white flex-row items-center justify-between">
+            <View
+                className="p-5 rounded-xl bg-white flex-row items-center justify-between"
+                style={{ shadowOpacity: 0.1, elevation: 2 }}
+            >
                 <View>
-
-                    <Text className="font-montserratMedium text-base">Período Escolhido</Text>
+                    <Text className="font-montserratMedium text-base" style={{ color: theme.colors.text }}>
+                        Período Escolhido
+                    </Text>
                     <View className="flex-row items-center">
-                        
-                            <TouchableOpacity onPress={() => { setPickerType("inicio"); setPickerVisible(true); }}>
-                                <Text className="mb-1.5 font-montserratMedium">{formatarData(inicio)}</Text>
-                            </TouchableOpacity>
-                            <Text className="mb-1.5 font-montserratMedium"> - </Text>
-                            <TouchableOpacity onPress={() => { setPickerType("fim"); setPickerVisible(true); }}>
-                                <Text className="mb-1.5 font-montserratMedium">{formatarData(fim)}</Text>
-                            </TouchableOpacity>
-
-                        
+                        <TouchableOpacity onPress={() => abrirPicker("inicio")}>
+                            <Text className="mb-1.5 font-montserratMedium">{formatarData(inicio)}</Text>
+                        </TouchableOpacity>
+                        <Text className="mb-1.5 font-montserratMedium mx-1"> - </Text>
+                        <TouchableOpacity onPress={() => abrirPicker("fim")}>
+                            <Text className="mb-1.5 font-montserratMedium">{formatarData(fim)}</Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
                 <Ionicons name="calendar-outline" size={22} color="#333" />
