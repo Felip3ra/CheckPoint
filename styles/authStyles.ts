@@ -20,11 +20,12 @@ export const authStyles = StyleSheet.create({
         flex: 2,
         backgroundColor: theme.colors.background,
         borderTopLeftRadius: 70,
+        borderTopRightRadius: 70,
+        paddingHorizontal: theme.spacing.xl,
+        paddingTop: theme.spacing.xl,
     },
     form: {
         flex: 1,
-        marginLeft: 32,
-        marginRight: 32,
     },
     label: {
         fontFamily: theme.fontFamily.regular,

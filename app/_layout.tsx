@@ -2,8 +2,16 @@ import { Stack } from "expo-router/stack";
 import "../global.css";
 import { AddressProvider } from "@/hooks/AddressContext";
 import { AuthProvider } from "@/hooks/AuthContext";
+import { useCustomFonts } from "@/hooks/useFonts";
+import LoadingOverlay from "@/components/LoadingOverlay";
 
 export default function Layout(): React.JSX.Element {
+    const fontsLoaded = useCustomFonts();
+
+    if (!fontsLoaded) {
+        return <LoadingOverlay label="Carregando fontes..." />;
+    }
+
     return (
         <AuthProvider>
             <AddressProvider>

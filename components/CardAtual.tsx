@@ -25,7 +25,7 @@ export default function CardAtual(): React.JSX.Element {
                         </View>
                     </View>
                     <ProgressBar progress={0.0} color={theme.colors.primary} style={cardStyles.progress} />
-                </View>
+                </Card.Content>
             </Card>
         </View>
     );
