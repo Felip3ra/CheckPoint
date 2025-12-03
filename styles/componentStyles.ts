@@ -38,8 +38,10 @@ export const componentStyles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         paddingVertical: theme.spacing.md,
+        paddingHorizontal: theme.spacing.md,
         gap: theme.spacing.sm,
-        marginBottom: theme.spacing.md,
+        marginBottom: 0,
+        width: "100%",
         backgroundColor: theme.colors.surface,
     },
     chip: {

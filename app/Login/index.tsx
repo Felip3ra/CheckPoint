@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Image, Text, TouchableOpacity, Alert, KeyboardAvoidingView, Platform } from "react-native";
+import { View, Image, Text, TouchableOpacity, Alert, KeyboardAvoidingView, Platform, ScrollView } from "react-native";
 import { Stack, router } from "expo-router";
 import StyledTextInput from "@/components/StyledTextInput";
 import Acessar from "@/components/Acessar";
@@ -30,49 +30,52 @@ function Login(): React.JSX.Element {
 
     return (
         <KeyboardAvoidingView
-            behavior={Platform.OS === "ios" ? "padding" : undefined}
+            behavior={Platform.OS === "ios" ? "padding" : "height"}
+            keyboardVerticalOffset={Platform.OS === "ios" ? 0 : 32}
             style={authStyles.container}
         >
             <Stack.Screen options={{ headerShown: false }} />
-            <View style={authStyles.logoWrapper}>
-                <Image source={require("../../imgs/checkpoint.png")} style={authStyles.logo} />
-            </View>
-            <View style={authStyles.content}>
-                <View style={authStyles.form}>
-                    <Text style={authStyles.label}>Email</Text>
-                    <StyledTextInput
-                        Iconname="email"
-                        placeholder="Digite seu email..."
-                        ispassword={false}
-                        onChangeText={setEmail}
-                    />
+            <ScrollView contentContainerStyle={authStyles.scrollContent} keyboardShouldPersistTaps="handled">
+                <View style={authStyles.logoWrapper}>
+                    <Image source={require("../../imgs/checkpoint.png")} style={authStyles.logo} />
+                </View>
+                <View style={authStyles.content}>
+                    <View style={authStyles.form}>
+                        <Text style={authStyles.label}>Email</Text>
+                        <StyledTextInput
+                            Iconname="email"
+                            placeholder="Digite seu email..."
+                            ispassword={false}
+                            onChangeText={setEmail}
+                        />
 
-                    <Text style={authStyles.label}>Senha</Text>
-                    <StyledTextInput
-                        Iconname="lock"
-                        placeholder="Digite sua senha..."
-                        ispassword
-                        onChangeText={setSenha}
-                    />
+                        <Text style={authStyles.label}>Senha</Text>
+                        <StyledTextInput
+                            Iconname="lock"
+                            placeholder="Digite sua senha..."
+                            ispassword
+                            onChangeText={setSenha}
+                        />
 
-                    <TouchableOpacity style={authStyles.forgotWrapper}>
-                        <Text style={authStyles.forgotText}>Esqueci minha senha</Text>
-                    </TouchableOpacity>
-
-                    <View style={authStyles.cta}>
-                        <Acessar tipo="Acessar" onPress={handleAutenticateUser} loading={loading} />
-                    </View>
-
-                    <View style={authStyles.footer}>
-                        <Text style={authStyles.footerText}>Não tem uma conta?</Text>
-                        <TouchableOpacity onPress={() => router.push("../Register")}>
-                            <Text style={[authStyles.footerLink, { marginLeft: theme.spacing.sm }]}>
-                                Cadastre-se
-                            </Text>
+                        <TouchableOpacity style={authStyles.forgotWrapper}>
+                            <Text style={authStyles.forgotText}>Esqueci minha senha</Text>
                         </TouchableOpacity>
+
+                        <View style={authStyles.cta}>
+                            <Acessar tipo="Acessar" onPress={handleAutenticateUser} loading={loading} />
+                        </View>
+
+                        <View style={authStyles.footer}>
+                            <Text style={authStyles.footerText}>Não tem uma conta?</Text>
+                            <TouchableOpacity onPress={() => router.push("../Register")}>
+                                <Text style={[authStyles.footerLink, { marginLeft: theme.spacing.sm }]}>
+                                    Cadastre-se
+                                </Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
                 </View>
-            </View>
+            </ScrollView>
         </KeyboardAvoidingView>
     );
 }

@@ -1,19 +1,28 @@
-import { TouchableOpacity } from "react-native";
+import { TouchableOpacity, StyleSheet } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { Link,useRouter } from "expo-router";
-import "../global.css";
-import { useCustomFonts } from "@/hooks/useFonts";
-const ButtonNewRequest = () =>{
-    const fontsLoaded = useCustomFonts();
-    return(
-        
-        <Link href='/NewRequest' asChild>
-        
-        <TouchableOpacity className="absolute bg-[#0097E2] rounded-lg p-4 bottom-5 right-0">
-            <MaterialCommunityIcons name="plus" size={25}/>
-        </TouchableOpacity>
+import { Link } from "expo-router";
+import { theme } from "@/styles/theme";
+
+const ButtonNewRequest = (): React.JSX.Element => {
+    return (
+        <Link href="/NewRequest" asChild>
+            <TouchableOpacity style={styles.fab}>
+                <MaterialCommunityIcons name="plus" size={24} color={theme.colors.background} />
+            </TouchableOpacity>
         </Link>
     );
-}
+};
+
+const styles = StyleSheet.create({
+    fab: {
+        position: "absolute",
+        bottom: theme.spacing.xxl * 1.4,
+        right: theme.spacing.xl,
+        backgroundColor: theme.colors.primary,
+        borderRadius: theme.radius.pill,
+        padding: theme.spacing.lg,
+        elevation: 4,
+    },
+});
 
 export default ButtonNewRequest;

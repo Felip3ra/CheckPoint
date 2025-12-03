@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, ScrollView, StyleSheet } from "react-native";
+import { SafeAreaView, View, Text, TouchableOpacity, ScrollView, StyleSheet } from "react-native";
 import Acessar from "@/components/Acessar";
 import StyledTextInput from "@/components/StyledTextInput";
 import ImagePickerProfile from "@/components/ImagePickerProfile";
@@ -6,45 +6,57 @@ import { theme } from "@/styles/theme";
 
 export default function Profile(): React.JSX.Element {
     return (
-        <ScrollView contentContainerStyle={profileStyles.container}>
-            <ImagePickerProfile />
-            <Text className="font-montserratMedium text-2xl mt-5 text-center" style={{ color: theme.colors.text }}>
-                Felipe Santana Santos
-            </Text>
-            <View style={profileStyles.form}>
-                <Text className="font-montserratRegular mt-4 text-lg mb-1" style={{ color: theme.colors.text }}>
-                    Email
-                </Text>
-                <StyledTextInput Iconname="email" placeholder="Digite seu email..." ispassword={false} />
+        <SafeAreaView style={profileStyles.screen}>
+            <ScrollView contentContainerStyle={profileStyles.container} showsVerticalScrollIndicator={false}>
+                <ImagePickerProfile />
+                <Text style={profileStyles.name}>Felipe Santana Santos</Text>
+                <View style={profileStyles.form}>
+                    <Text style={profileStyles.label}>Email</Text>
+                    <StyledTextInput Iconname="email" placeholder="Digite seu email..." ispassword={false} />
 
-                <Text className="font-montserratRegular text-lg mt-4 mb-1" style={{ color: theme.colors.text }}>
-                    Senha
-                </Text>
-                <StyledTextInput Iconname="lock" placeholder="Digite sua senha..." ispassword />
+                    <Text style={profileStyles.label}>Senha</Text>
+                    <StyledTextInput Iconname="lock" placeholder="Digite sua senha..." ispassword />
 
-                <View style={{ marginTop: theme.spacing.lg }}>
-                    <Acessar tipo="Salvar" />
+                    <View style={{ marginTop: theme.spacing.lg }}>
+                        <Acessar tipo="Salvar" />
+                    </View>
+
+                    <View style={profileStyles.footer}>
+                        <TouchableOpacity>
+                            <Text style={profileStyles.link}>Política de privacidade</Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
-
-                <View style={profileStyles.footer}>
-                    <TouchableOpacity>
-                        <Text className="text-base font-montserratRegular" style={{ color: theme.colors.primary }}>
-                            Política de privacidade
-                        </Text>
-                    </TouchableOpacity>
-                </View>
-            </View>
-        </ScrollView>
+            </ScrollView>
+        </SafeAreaView>
     );
 }
 
 const profileStyles = StyleSheet.create({
+    screen: {
+        flex: 1,
+        backgroundColor: theme.colors.background,
+    },
     container: {
         padding: theme.spacing.lg,
+    },
+    name: {
+        fontFamily: theme.fontFamily.medium,
+        fontSize: 22,
+        marginTop: theme.spacing.md,
+        textAlign: "center",
+        color: theme.colors.text,
     },
     form: {
         marginTop: theme.spacing.lg,
         gap: theme.spacing.sm,
+    },
+    label: {
+        fontFamily: theme.fontFamily.regular,
+        marginTop: theme.spacing.sm,
+        marginBottom: theme.spacing.xs,
+        fontSize: 16,
+        color: theme.colors.text,
     },
     footer: {
         flexDirection: "row",
@@ -53,6 +65,9 @@ const profileStyles = StyleSheet.create({
         marginTop: theme.spacing.xl,
         marginBottom: theme.spacing.xl,
     },
+    link: {
+        fontFamily: theme.fontFamily.regular,
+        fontSize: 15,
+        color: theme.colors.primary,
+    },
 });
-
-

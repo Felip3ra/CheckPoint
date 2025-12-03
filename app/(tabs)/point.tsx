@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { View, Text, SafeAreaView, Modal, TouchableOpacity, Alert } from "react-native";
+import { View, Text, SafeAreaView, Modal, TouchableOpacity, Alert, ScrollView } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import LottieView from "lottie-react-native";
@@ -125,7 +125,7 @@ export default function Point(): React.JSX.Element {
                 </View>
             </Modal>
 
-            <View style={pointStyles.wrapper}>
+            <ScrollView contentContainerStyle={pointStyles.wrapper} showsVerticalScrollIndicator={false}>
                 <Text style={pointStyles.title}>Horário do ponto</Text>
                 <Text style={pointStyles.subtitle}>{dataHoje}</Text>
 
@@ -156,10 +156,10 @@ export default function Point(): React.JSX.Element {
                     <Mapa />
                 </View>
 
-                <View style={{ marginTop: theme.spacing.lg }}>
+                <View style={{ marginTop: theme.spacing.lg, marginBottom: theme.spacing.xl }}>
                     <Acessar tipo="Bater ponto" onPress={handleAddPoint} loading={saving} />
                 </View>
-            </View>
+            </ScrollView>
         </SafeAreaView>
     );
 }

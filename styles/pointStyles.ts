@@ -8,20 +8,21 @@ export const pointStyles = StyleSheet.create({
     },
     wrapper: {
         marginHorizontal: theme.spacing.xl,
+        paddingTop: theme.spacing.xl,
         paddingBottom: theme.spacing.xxl,
+        gap: theme.spacing.md,
     },
     title: {
         fontFamily: theme.fontFamily.medium,
         fontSize: 20,
         color: theme.colors.text,
-        marginTop: theme.spacing.xl,
     },
     subtitle: {
         fontFamily: theme.fontFamily.regular,
         fontSize: 18,
         color: theme.colors.text,
-        marginTop: theme.spacing.lg,
-        marginBottom: theme.spacing.sm,
+        marginTop: theme.spacing.sm,
+        marginBottom: theme.spacing.xs,
     },
     pickerWrapper: {
         borderRadius: theme.radius.md,

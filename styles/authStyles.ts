@@ -24,6 +24,11 @@ export const authStyles = StyleSheet.create({
         paddingHorizontal: theme.spacing.xl,
         paddingTop: theme.spacing.xl,
     },
+    scrollContent: {
+        flexGrow: 1,
+        backgroundColor: theme.colors.primary,
+        paddingBottom: theme.spacing.xxl,
+    },
     form: {
         flex: 1,
     },
